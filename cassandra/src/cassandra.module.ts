@@ -52,6 +52,7 @@ export class CassandraModule {
             module: CassandraModule,
             imports: options.imports,
             providers,
+            exports: providers,
         }
     }
 }
