@@ -7,5 +7,11 @@ npm i @mich4l/nestjs-cassandra
 ```
 
 ### Slonik PostgreSQL connector  (not exists yet)
+```bash
+npm i @mich4l/nestjs-slonik
+```
 
 ### Redis connector (not exists yet)
+```bash
+npm i @mich4l/nestjs-redis
+```
