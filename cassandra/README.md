@@ -38,7 +38,7 @@ export class AppModule {}
 `example.service.ts`
 ```ts
 import { Inject, Injectable } from '@nestjs/common';
-import { CASSANDRA_CLIENT } from '@mich4l/nestjs-cassandra';
+import { InjectCassandra } from '@mich4l/nestjs-cassandra';
 import { Client } from 'cassandra-driver';
 
 @Injectable()
