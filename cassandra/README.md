@@ -84,6 +84,7 @@ export class AppModule {}
 
 ### Graceful shutdown
 Module closes connection using `onApplicationShutdown` hook. You may need:
+
 `main.ts`
 ```ts
 ...
