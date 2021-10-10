@@ -14,13 +14,11 @@ function createAsyncProvider(moduleOptions: CassandraModuleAsyncOptions): Provid
     return {
         provide: CASSANDRA_CLIENT,
         inject: moduleOptions.inject,
-        useFactory: (...args: any[]) => {
-            const redisOptions = moduleOptions.useFactory(...args);
+        useFactory: async (...args: any[]) => {
+            const redisOptions = await moduleOptions.useFactory(...args);
             const client = new Client(redisOptions);
-            client.connect()
-                .then(() => {
-                    Logger.log('Cassandra connected successfuly', 'CassandraModule');
-                });
+            await client.connect()
+            Logger.log('Cassandra connected successfuly', 'CassandraModule');
             
             return client;
         }
