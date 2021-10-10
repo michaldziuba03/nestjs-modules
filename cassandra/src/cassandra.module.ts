@@ -7,7 +7,6 @@ function createProvider(client: Client): Provider {
     return {
         provide: CASSANDRA_CLIENT,
         useValue: client,
-
     }
 }
 
@@ -16,7 +15,7 @@ function createAsyncProvider(moduleOptions: CassandraModuleAsyncOptions): Provid
         provide: CASSANDRA_CLIENT,
         inject: moduleOptions.inject,
         useFactory: (...args: any[]) => {
-            const redisOptions = moduleOptions.useFactory(args);
+            const redisOptions = moduleOptions.useFactory(...args);
             const client = new Client(redisOptions);
             client.connect()
                 .then(() => {
