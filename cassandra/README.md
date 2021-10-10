@@ -56,3 +56,43 @@ export class ExampleService {
     }
 }
 ```
+
+### Async register example
+```ts
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      cache: true,
+    }),
+    CassandraModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => {
+        return {
+          keyspace: config.get('CASSANDRA_KEYSPACE'),
+          localDataCenter: config.get('CASSANDRA_DATACENTER'),
+          contactPoints: ['127.0.0.1'],
+        }
+      }
+    })
+  ],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
+```
+
+### Graceful shutdown
+Module closes connection using `onApplicationShutdown` hook. You may need:
+`main.ts`
+```ts
+...
+async function bootstrap() {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+  });
+
+  app.enableShutdownHooks();
+  await app.listen(3000);
+}
+bootstrap();
+```
