@@ -15,6 +15,12 @@ export class RedisModule implements OnApplicationShutdown {
     static register(options: ModuleOptions): DynamicModule {
         const providers: Provider[] = [];
         const clientsMap = createClientsMap(options);
+        
+        providers.push({
+            provide: REDIS_CLIENTS,
+            useValue: clientsMap,
+        });
+
         clientsMap.forEach((client, key) => {
             providers.push({
                 provide: getToken(key),
