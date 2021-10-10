@@ -44,7 +44,7 @@ import { Client } from 'cassandra-driver';
 @Injectable()
 export class ExampleService {
     constructor(
-        @Inject(CASSANDRA_CLIENT)
+        @InjectCassandra()
         private readonly dbClient: Client,
     ) {}
 
