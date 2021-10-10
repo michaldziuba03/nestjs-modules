@@ -1,3 +1,3 @@
 export { REDIS_CLIENTS } from './redis.constants';
 export { RedisModule } from './redis.module';
-export { getToken, InjectRedis } from './redis.decorator';
+export { getToken, InjectRedis, InjectRedisClients } from './redis.decorator';
