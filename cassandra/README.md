@@ -8,7 +8,7 @@ Cassandra module based on npm library `cassandra-driver`.
 ### Installation
 #### npm
 ```bash
-npm run @mich4l/nestjs-cassandra
+npm install @mich4l/nestjs-cassandra
 ```
 
 #### Yarn
