@@ -41,9 +41,11 @@ export class CassandraModule implements OnApplicationShutdown {
     }
 
     async onApplicationShutdown() {
+        Logger.log('Shut down Cassandra...', 'CassandraModule');
         const client = this.moduleRef.get<Client>(CASSANDRA_CLIENT);
         if (client) {
             await client.shutdown();
+            Logger.log('Cassandra disconnected successfuly', 'CassandraModule');
         }
     }
 }

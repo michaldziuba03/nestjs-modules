@@ -17,9 +17,8 @@ export function createAsyncProvider(moduleOptions: CassandraModuleAsyncOptions):
         useFactory: async (...args: any[]) => {
             const redisOptions = await moduleOptions.useFactory(...args);
             const client = new Client(redisOptions);
-            client.connect()
-                .then(() => Logger.log('Cassandra connected successfuly', 'CassandraModule')
-            )
+            await client.connect();
+            Logger.log('Cassandra connected successfuly', 'CassandraModule');
             
             return client;
         }
