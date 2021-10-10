@@ -1,29 +1,7 @@
-import { DynamicModule, Global, Logger, Module, Provider } from "@nestjs/common";
+import { DynamicModule, Global, Logger, Module } from "@nestjs/common";
 import { DseClientOptions, Client } from 'cassandra-driver';
-import { CASSANDRA_CLIENT } from "./cassandra.constants";
 import { CassandraModuleAsyncOptions } from "./cassandra.interface";
-
-function createProvider(client: Client): Provider {
-    return {
-        provide: CASSANDRA_CLIENT,
-        useValue: client,
-    }
-}
-
-function createAsyncProvider(moduleOptions: CassandraModuleAsyncOptions): Provider {
-    return {
-        provide: CASSANDRA_CLIENT,
-        inject: moduleOptions.inject,
-        useFactory: async (...args: any[]) => {
-            const redisOptions = await moduleOptions.useFactory(...args);
-            const client = new Client(redisOptions);
-            await client.connect()
-            Logger.log('Cassandra connected successfuly', 'CassandraModule');
-            
-            return client;
-        }
-    }
-}
+import { createAsyncProvider, createProvider } from "./cassandra.provider";
 
 @Global()
 @Module({})
