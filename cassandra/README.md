@@ -17,6 +17,7 @@ yarn add @mich4l/nestjs-cassandra
 ```
 
 ### Examples
+`app.module.ts`
 ```ts
 import { Module } from '@nestjs/common';
 import { CassandraModule } from 'mich4l/nestjs-cassandra';
@@ -32,4 +33,26 @@ import { CassandraModule } from 'mich4l/nestjs-cassandra';
   providers: [],
 })
 export class AppModule {}
+```
+
+`example.service.ts`
+```ts
+import { Inject, Injectable } from '@nestjs/common';
+import { CASSANDRA_CLIENT } from '@mich4l/nestjs-cassandra';
+import { Client } from 'cassandra-driver';
+
+@Injectable()
+export class ExampleService {
+    constructor(
+        @Inject(CASSANDRA_CLIENT)
+        private readonly dbClient: Client,
+    ) {}
+
+    async getAllPosts() {
+        const query = 'SELECT * FROM posts';
+        const result = await this.dbClient.execute(query);
+
+        return result.rows[0];
+    }
+}
 ```

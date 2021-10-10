@@ -1,8 +1,7 @@
 import { DynamicModule, Global, Logger, Module, Provider } from "@nestjs/common";
 import { DseClientOptions, Client } from 'cassandra-driver';
+import { CASSANDRA_CLIENT } from "./cassandra.constants";
 import { CassandraModuleAsyncOptions } from "./cassandra.interface";
-
-export const CASSANDRA_CLIENT = 'CASSANDRA_CLIENT';
 
 function createProvider(client: Client): Provider {
     return {
