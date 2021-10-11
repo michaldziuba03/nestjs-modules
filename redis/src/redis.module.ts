@@ -1,8 +1,8 @@
 import { Module, Global, OnApplicationShutdown, DynamicModule, Provider, Logger, Inject } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
-import { Redis, RedisOptions } from 'ioredis'
+import { Redis } from 'ioredis'
 import { DEFAULT_CONNECTION_NAME, REDIS_OPTIONS, REDIS_TOKEN } from './redis.constants';
-import { RedisModuleAsyncOptions } from './redis.interface';
+import { ModuleOptions, RedisModuleAsyncOptions } from './redis.interface';
 import { createClient, getConnectionToken, logger, shutdownClient } from './redis.utils';
 
 const tokens: string[] = [];
@@ -16,7 +16,7 @@ export class RedisModule implements OnApplicationShutdown {
         private readonly moduleRef: ModuleRef,
     ) {}
 
-    static register(options: RedisOptions): DynamicModule {
+    static register(options: ModuleOptions): DynamicModule {
         const token = getConnectionToken(options.name || DEFAULT_CONNECTION_NAME);
         if (tokens.includes(token)) {
             throw new Error('Connection names duplication!');
