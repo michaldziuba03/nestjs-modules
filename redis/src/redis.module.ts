@@ -1,5 +1,6 @@
 import { Module, Global, OnApplicationShutdown, DynamicModule, Provider } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
+import { RedisOptions } from 'ioredis';
 import { REDIS_CLIENTS, REDIS_CLIENT_BASE } from './redis.constants';
 import { getRedisToken } from './redis.decorator';
 import { ModuleOptions } from './redis.interface';
@@ -12,7 +13,7 @@ export class RedisModule implements OnApplicationShutdown {
         private readonly moduleRef: ModuleRef,
     ) {}
 
-    static register(options: ModuleOptions): DynamicModule {
+    static register(options: RedisOptions | RedisOptions[]): DynamicModule {
         const providers: Provider[] = [];
         const clientsMap = createClientsMap(options);
         
