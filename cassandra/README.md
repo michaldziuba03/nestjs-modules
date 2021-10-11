@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+  <img src="https://user-images.githubusercontent.com/43048524/136818805-b9fc463e-3829-4dab-b943-f5e18425c6ff.png" width="320" alt="Nest Cassandra Logo" />
 </p>
 
 ## Nest.js Cassandra module
