@@ -1,10 +1,11 @@
-import { Module, Global, OnApplicationShutdown, DynamicModule, Provider } from '@nestjs/common';
+import { Module, Global, OnApplicationShutdown, DynamicModule, Provider, Logger } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
-import { RedisOptions } from 'ioredis';
-import { REDIS_CLIENTS, REDIS_CLIENT_BASE } from './redis.constants';
+import { Redis, RedisOptions } from 'ioredis';
+import { RedisClientStatus, REDIS_CLIENTS, REDIS_LOGGER_CONTEXT } from './redis.constants';
 import { getRedisToken } from './redis.decorator';
-import { ModuleOptions } from './redis.interface';
-import { createClientsMap, createClientsProvider } from './redis.provider';
+import { createClientsMap } from './redis.provider';
+
+const logger = new Logger(REDIS_LOGGER_CONTEXT);
 
 @Global()
 @Module({})
@@ -28,7 +29,7 @@ export class RedisModule implements OnApplicationShutdown {
                 useValue: client,
             })
         })
-
+        
         return {
             module: RedisModule,
             providers,
@@ -37,6 +38,21 @@ export class RedisModule implements OnApplicationShutdown {
     }
     
     async onApplicationShutdown() {
- 
+        logger.log('Closing Redis connection...');
+        type ClientsMap = Map<string, Redis>;
+        const clientsMap = this.moduleRef.get<ClientsMap>(REDIS_CLIENTS);
+        if (clientsMap) {
+            const promises = [];
+            clientsMap.forEach(client => {
+                if (client.status === RedisClientStatus.READY) {
+                    promises.push(client.quit());
+                }
+
+                client.disconnect();
+            });
+
+            await Promise.all(promises);
+            logger.log('Redis connection closed successfuly');
+        }
     }
 }
