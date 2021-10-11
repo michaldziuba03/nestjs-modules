@@ -1,7 +1,7 @@
 import { Module, Global, OnApplicationShutdown, DynamicModule, Provider } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { REDIS_CLIENTS, REDIS_CLIENT_BASE } from './redis.constants';
-import { getToken } from './redis.decorator';
+import { getRedisToken } from './redis.decorator';
 import { ModuleOptions } from './redis.interface';
 import { createClientsMap, createClientsProvider } from './redis.provider';
 
@@ -23,7 +23,7 @@ export class RedisModule implements OnApplicationShutdown {
 
         clientsMap.forEach((client, key) => {
             providers.push({
-                provide: getToken(key),
+                provide: getRedisToken(key),
                 useValue: client,
             })
         })
