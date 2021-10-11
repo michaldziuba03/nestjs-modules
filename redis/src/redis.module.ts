@@ -1,98 +1,91 @@
-import { Module, Global, OnApplicationShutdown, DynamicModule, Provider, Logger } from '@nestjs/common';
+import { Module, Global, OnApplicationShutdown, DynamicModule, Provider, Logger, Inject } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
-import { Redis, RedisOptions } from 'ioredis';
-import { RedisClientStatus, REDIS_CLIENTS, REDIS_LOGGER_CONTEXT, REDIS_OPTIONS, REDIS_PROVIDER } from './redis.constants';
-//import { getRedisToken } from './redis.decorator';
+import { Redis, RedisOptions } from 'ioredis'
+import { DEFAULT_CONNECTION_NAME, REDIS_OPTIONS, REDIS_TOKEN } from './redis.constants';
 import { RedisModuleAsyncOptions } from './redis.interface';
-import { createClientsMap, RedisProvider } from './redis.provider';
+import { createClient, getConnectionToken, shutdownClient } from './redis.utils';
 
-const logger = new Logger(REDIS_LOGGER_CONTEXT);
+const tokens: string[] = [];
 
 @Global()
 @Module({})
 export class RedisModule implements OnApplicationShutdown {
     constructor(
+        @Inject(REDIS_TOKEN) 
+        private readonly clientToken: string,
         private readonly moduleRef: ModuleRef,
     ) {}
 
-    static register(options: RedisOptions | RedisOptions[]): DynamicModule {
-        const providers: Provider[] = [];
-        const clientsMap = createClientsMap(options);
+    static register(options: RedisOptions): DynamicModule {
+        const token = getConnectionToken(options.name || DEFAULT_CONNECTION_NAME);
+        if (tokens.includes(token)) {
+            throw new Error('Connection names duplication!');
+        }
 
-        providers.push({
+        tokens.push(token);
+
+        const clientToken: Provider = {
+            provide: REDIS_TOKEN,
+            useValue: token,
+        }
+
+        const clientOptions: Provider = {
             provide: REDIS_OPTIONS,
-            useValue: options, 
-        })
-        
-        providers.push({
-            provide: REDIS_CLIENTS,
-            useValue: clientsMap,
-        });
+            useValue: options,
+        }
 
-
-        providers.push({
-            provide: REDIS_PROVIDER,
-            useClass: RedisProvider,
-        });
-        /*
-        clientsMap.forEach((client, key) => {
-            providers.push({
-                provide: getRedisToken(key),
-                useValue: client,
-            });
-        });
-        */
+        const clientProvider: Provider = {
+            provide: token,
+            inject: [REDIS_OPTIONS],
+            useFactory: createClient,
+        }
 
         return {
             module: RedisModule,
-            providers,
-            exports: providers,
+            providers: [clientToken, clientOptions, clientProvider],
+            exports: [clientProvider],
         }
     }
     
     static registerAsync(options: RedisModuleAsyncOptions): DynamicModule {
-        const providers: Provider[] = [];
-        providers.push({
+        const token = getConnectionToken(options.name || DEFAULT_CONNECTION_NAME);
+        if (tokens.includes(token)) {
+            throw new Error('Connection names duplication!');
+        }
+
+        tokens.push(token);
+
+        const clientToken: Provider = {
+            provide: REDIS_TOKEN,
+            useValue: token,
+        }
+
+        const clientOptions: Provider = {
             provide: REDIS_OPTIONS,
             inject: options.inject,
             useFactory: options.useFactory,
-        });
+        }
 
-        providers.push({
-            provide: REDIS_CLIENTS,
+        const clientProvider: Provider = {
+            provide: token,
             inject: [REDIS_OPTIONS],
-            useFactory: (options: RedisOptions | RedisOptions[]) => {createClientsMap(options)},
-        });
-
-        providers.push({
-            provide: REDIS_PROVIDER,
-            useClass: RedisProvider,
-        });
+            useFactory: createClient,
+        }
 
         return {
             module: RedisModule,
             imports: options.imports,
-            providers,
-            exports: providers,
+            providers: [clientToken, clientOptions, clientProvider],
+            exports: [clientProvider],
         }
     }
     
     async onApplicationShutdown() {
-        logger.log('Closing Redis connection...');
-        type ClientsMap = Map<string, Redis>;
-        const clientsMap = this.moduleRef.get<ClientsMap>(REDIS_CLIENTS);
-        if (clientsMap) {
-            const promises = [];
-            clientsMap.forEach(client => {
-                if (client.status === RedisClientStatus.READY) {
-                    promises.push(client.quit());
-                }
+        const token = this.clientToken;
+        const client = this.moduleRef.get<Redis>(token);
 
-                client.disconnect();
-            });
-
-            await Promise.all(promises);
-            logger.log('Redis connection closed successfuly');
+        if (client) {
+            await shutdownClient(client);
         }
     }
 }

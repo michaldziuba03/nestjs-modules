@@ -1,15 +1,11 @@
 import { Inject } from "@nestjs/common"
-import { REDIS_CLIENT_BASE, REDIS_CLIENTS, REDIS_PROVIDER } from "./redis.constants"
+import { DEFAULT_CONNECTION_NAME } from "./redis.constants";
+import { getConnectionToken } from "./redis.utils"
 
-export const getRedisToken = (clientName: string) => `${REDIS_CLIENT_BASE}${clientName}`;
-
-/*
-export const InjectRedis = (clientName: string = 'default') => {
-    const token = getRedisToken(clientName);
+export const InjectRedis = (connectionName: string = DEFAULT_CONNECTION_NAME) => {
+    const token = getConnectionToken(connectionName);
+    
     return Inject(token);
 }
-*/
 
-export const InjectRedis = () => Inject(REDIS_PROVIDER);
-
-export const InjectRedisClients = () => Inject(REDIS_CLIENTS);
+export const injectRedisToken = (connectionName: string = DEFAULT_CONNECTION_NAME) => getConnectionToken(connectionName);
