@@ -1,5 +1,6 @@
-import { Provider } from '@nestjs/common';
+import { Inject, Injectable, Provider } from '@nestjs/common';
 import Redis, { RedisOptions, Redis as IRedis } from 'ioredis';
+import { InjectRedisClients } from 'src';
 import { REDIS_CLIENTS } from './redis.constants';
 
 function createClient(options: RedisOptions) {
@@ -23,7 +24,7 @@ export function createClientsMap(options: RedisOptions | RedisOptions[]) {
             }
 
             clients.set(key, client);
-        })
+        });
 
         return clients;
     }
@@ -41,5 +42,17 @@ export function createClientsProvider(options: RedisOptions | RedisOptions[]): P
     return {
         provide: REDIS_CLIENTS,
         useValue: clients,
+    }
+}
+
+@Injectable()
+export class RedisProvider {
+    constructor(
+        @InjectRedisClients()
+        private readonly redisClients: Map<string, IRedis>
+    ) {}
+
+    get(clientName: string = 'default') {
+        return this.redisClients.get(clientName);
     }
 }
