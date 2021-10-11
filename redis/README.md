@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+  <img src="https://user-images.githubusercontent.com/43048524/136818357-bcc8e3b9-0e28-4a9c-ad3d-e90a6de78713.png" width="320" alt="Nest Redis Logo" />
 </p>
 
 ## Nest.js Redis module (in development)
