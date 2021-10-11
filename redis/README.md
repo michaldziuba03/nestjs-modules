@@ -5,6 +5,11 @@
 ## Nest.js Redis module (in development)
 Redis module based on npm library `ioredis`.
 
+#### Features:
+- Simple
+- Graceful shutdown
+- Multiple connections
+
 ### Installation
 #### npm
 ```bash
@@ -52,4 +57,45 @@ export class ExampleService {
         return JSON.parse(result);
     }
 }
+```
+
+### Multiple connections
+`Note:` Every connection requires unique name!
+```ts
+@Module({
+  imports: [
+    RedisModule.register({
+      name: 'conn1',
+      host: 'localhost',
+      port: 6379,
+    }),
+    RedisModule.register({
+      name: 'conn2',
+      host: 'localhost',
+      port: 2137,
+    })
+  ],
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
+```
+
+### OnReady method
+```ts
+@Module({
+  imports: [
+    RedisModule.register({
+      name: 'conn1',
+      host: 'localhost',
+      port: 6379,
+      onReady: (client: Redis) => {
+        client.on('error', handleError);
+      }
+    }),
+  ]
+  controllers: [],
+  providers: [],
+})
+export class AppModule {}
 ```
