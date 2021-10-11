@@ -3,7 +3,7 @@ import { ModuleRef } from '@nestjs/core';
 import { Redis, RedisOptions } from 'ioredis'
 import { DEFAULT_CONNECTION_NAME, REDIS_OPTIONS, REDIS_TOKEN } from './redis.constants';
 import { RedisModuleAsyncOptions } from './redis.interface';
-import { createClient, getConnectionToken, shutdownClient } from './redis.utils';
+import { createClient, getConnectionToken, logger, shutdownClient } from './redis.utils';
 
 const tokens: string[] = [];
 
@@ -40,6 +40,8 @@ export class RedisModule implements OnApplicationShutdown {
             useFactory: createClient,
         }
 
+        logger.log('Redis module created');
+
         return {
             module: RedisModule,
             providers: [clientToken, clientOptions, clientProvider],
@@ -72,6 +74,8 @@ export class RedisModule implements OnApplicationShutdown {
             useFactory: createClient,
         }
 
+        logger.log('Redis module created');
+
         return {
             module: RedisModule,
             imports: options.imports,
@@ -85,6 +89,7 @@ export class RedisModule implements OnApplicationShutdown {
         const client = this.moduleRef.get<Redis>(token);
 
         if (client) {
+            logger.log(`Closing Redis connection from ${token} module`);
             await shutdownClient(client);
         }
     }
