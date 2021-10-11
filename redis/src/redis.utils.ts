@@ -7,7 +7,10 @@ export const logger = new Logger(REDIS_CONTEXT);
 
 export function createClient(options: ModuleOptions) {
     const client = new IORedis(options);
-    options.onReady(client);
+    if (options.onReady) {
+        options.onReady(client);
+    }
+    
     return client;
 }
 
