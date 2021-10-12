@@ -5,6 +5,7 @@ export interface IORedisClusterOptions {
     options?: ClusterOptions,
     nodes: ClusterNode[],
     onReady?: (cluster: Cluster) => any;
+    beforeShutdown?: (cluster: Cluster) => any | Promise<any>;
 }
 
 export interface ClusterModuleOptions extends IORedisClusterOptions {

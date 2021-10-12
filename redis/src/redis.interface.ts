@@ -3,6 +3,7 @@ import { Redis, RedisOptions } from 'ioredis';
 
 export interface ModuleOptions extends RedisOptions {
     onReady?: (client: Redis) => any;
+    beforeShutdown?: (client: Redis) => any | Promise<any>;
 }
 
 export interface RedisModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'> {

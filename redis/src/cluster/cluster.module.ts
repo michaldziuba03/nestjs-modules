@@ -3,7 +3,7 @@ import { ModuleRef } from "@nestjs/core";
 import { Cluster } from "ioredis";
 import { shutdownClient } from "src/redis.utils";
 import { CLUSTER_DEFAULT_TOKEN, CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster.constants";
-import { ClusterModuleAsyncOptions, ClusterModuleOptions } from "./cluster.interface";
+import { ClusterModuleAsyncOptions, ClusterModuleOptions, IORedisClusterOptions } from "./cluster.interface";
 import { createCluster, createClusterToken, logger } from "./cluster.utils";
 
 const tokens: string[] = [];
@@ -12,6 +12,8 @@ export class RedisClusterModule implements OnApplicationShutdown {
     constructor(
         @Inject(CLUSTER_TOKEN)
         private readonly token: string,
+        @Inject(CLUSTER_OPTIONS)
+        private readonly clusterOptions: IORedisClusterOptions,
         private readonly moduleRef: ModuleRef,
     ) {}
 
@@ -78,6 +80,10 @@ export class RedisClusterModule implements OnApplicationShutdown {
     async onApplicationShutdown() {
         const token = createClusterToken(this.token);
         const cluster = this.moduleRef.get<Cluster>(token);
+
+        if (this.clusterOptions.beforeShutdown) {
+            await this.clusterOptions.beforeShutdown(cluster);
+        }
 
         if (cluster) {
             await shutdownClient(cluster);

@@ -13,6 +13,8 @@ export class RedisModule implements OnApplicationShutdown {
     constructor(
         @Inject(REDIS_TOKEN) 
         private readonly clientToken: string,
+        @Inject(REDIS_OPTIONS)
+        private readonly clientOptions: ModuleOptions,
         private readonly moduleRef: ModuleRef,
     ) {}
 
@@ -87,6 +89,10 @@ export class RedisModule implements OnApplicationShutdown {
     async onApplicationShutdown() {
         const token = this.clientToken;
         const client = this.moduleRef.get<Redis>(token);
+
+        if (this.clientOptions.beforeShutdown) {
+            await this.clientOptions.beforeShutdown(client);
+        }
 
         if (client) {
             logger.log(`Closing Redis connection from ${token} module`);
