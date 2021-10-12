@@ -1,0 +1,3 @@
+export const CLUSTER_BASE = 'REDIS_CLUSTER_BASE_';
+export const CLUSTER_OPTIONS = 'CLUSTER_OPTIONS';
+export const CLUSTER_TOKEN = 'CLUSTER_TOKEN';

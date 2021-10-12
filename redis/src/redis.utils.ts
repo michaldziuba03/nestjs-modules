@@ -1,5 +1,5 @@
 import { Logger } from "@nestjs/common";
-import IORedis, { Redis, RedisOptions } from "ioredis";
+import IORedis, { Cluster, Redis, RedisOptions } from "ioredis";
 import { RedisClientStatus, REDIS_BASE_TOKEN, REDIS_CONTEXT } from "./redis.constants";
 import { ModuleOptions } from "./redis.interface";
 
@@ -14,7 +14,7 @@ export function createClient(options: ModuleOptions) {
     return client;
 }
 
-export async function shutdownClient(client: Redis) {
+export async function shutdownClient(client: Redis | Cluster) {
     if (client.status === RedisClientStatus.READY) {
         await client.quit();
     }

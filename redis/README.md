@@ -6,9 +6,11 @@
 Redis module based on npm library `ioredis`.
 
 #### Features:
-- Simple
+- Simple codebase
 - Graceful shutdown
 - Multiple connections
+- Cluster module (in development)
+- Simple lifecycle hooks (onStart, beforeShutdown) (in development)
 
 ### Installation
 #### npm
