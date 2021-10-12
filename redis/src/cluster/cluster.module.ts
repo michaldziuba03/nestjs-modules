@@ -6,6 +6,8 @@ import { CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster.constants";
 import { ClusterModuleAsyncOptions, ClusterModuleOptions } from "./cluster.interface";
 import { createCluster, createClusterToken } from "./cluster.utils";
 
+const tokens: string[] = [];
+
 export class RedisClusterModule implements OnApplicationShutdown {
     constructor(
         @Inject(CLUSTER_TOKEN)
@@ -14,6 +16,10 @@ export class RedisClusterModule implements OnApplicationShutdown {
     ) {}
 
     register(options: ClusterModuleOptions): DynamicModule {
+        if (tokens.includes(options.clusterToken)) {
+            throw new Error('Cluster tokens duplication!');
+        }
+
         const tokenProvider: Provider = {
             provide: CLUSTER_TOKEN,
             useValue: options.clusterToken,
@@ -38,6 +44,10 @@ export class RedisClusterModule implements OnApplicationShutdown {
     }
 
     registerAsync(options: ClusterModuleAsyncOptions): DynamicModule {
+        if (tokens.includes(options.clusterToken)) {
+            throw new Error('Cluster tokens duplication!');
+        }
+        
         const tokenProvider: Provider = {
             provide: CLUSTER_TOKEN,
             useValue: options.clusterToken,
