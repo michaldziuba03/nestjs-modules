@@ -2,9 +2,9 @@ import { DynamicModule, Inject, OnApplicationShutdown, Provider } from "@nestjs/
 import { ModuleRef } from "@nestjs/core";
 import { Cluster } from "ioredis";
 import { shutdownClient } from "src/redis.utils";
-import { CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster.constants";
+import { CLUSTER_DEFAULT_TOKEN, CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster.constants";
 import { ClusterModuleAsyncOptions, ClusterModuleOptions } from "./cluster.interface";
-import { createCluster, createClusterToken } from "./cluster.utils";
+import { createCluster, createClusterToken, logger } from "./cluster.utils";
 
 const tokens: string[] = [];
 
@@ -16,6 +16,7 @@ export class RedisClusterModule implements OnApplicationShutdown {
     ) {}
 
     register(options: ClusterModuleOptions): DynamicModule {
+        options.clusterToken = options.clusterToken || CLUSTER_DEFAULT_TOKEN;
         if (tokens.includes(options.clusterToken)) {
             throw new Error('Cluster tokens duplication!');
         }
@@ -44,10 +45,11 @@ export class RedisClusterModule implements OnApplicationShutdown {
     }
 
     registerAsync(options: ClusterModuleAsyncOptions): DynamicModule {
+        options.clusterToken = options.clusterToken || CLUSTER_DEFAULT_TOKEN;
         if (tokens.includes(options.clusterToken)) {
             throw new Error('Cluster tokens duplication!');
         }
-        
+
         const tokenProvider: Provider = {
             provide: CLUSTER_TOKEN,
             useValue: options.clusterToken,
@@ -79,6 +81,7 @@ export class RedisClusterModule implements OnApplicationShutdown {
 
         if (cluster) {
             await shutdownClient(cluster);
+            logger.log(`Closed connections for cluster:${this.token}`);
         }
     }
 }

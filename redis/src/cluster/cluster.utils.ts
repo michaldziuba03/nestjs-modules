@@ -1,3 +1,4 @@
+import { Logger } from "@nestjs/common";
 import IORedis from "ioredis";
 import { CLUSTER_BASE } from "./cluster.constants";
 import { IORedisClusterOptions } from "./cluster.interface";
@@ -14,3 +15,5 @@ export function createCluster(clusterOptions: IORedisClusterOptions) {
 export const createClusterToken = (clusterToken: string) => {
     return `${CLUSTER_BASE}${clusterToken}`;
 }
+
+export const logger = new Logger('RedisClusterModule');
