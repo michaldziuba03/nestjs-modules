@@ -1,8 +1,10 @@
 import { Logger } from "@nestjs/common";
 import IORedis from "ioredis";
 import { DuplicationError } from "src/errors/DuplicationError";
-import { CLUSTER_BASE, CLUSTER_DEFAULT_TOKEN } from "./cluster.constants";
+import { CLUSTER_BASE, CLUSTER_CONTEXT, CLUSTER_DEFAULT_TOKEN } from "./cluster.constants";
 import { IORedisClusterOptions } from "./cluster.interface";
+
+export const logger = new Logger(CLUSTER_CONTEXT);
 
 const tokens: string[] = []
 export function validateClusterToken(token: string = CLUSTER_DEFAULT_TOKEN) {
@@ -25,5 +27,3 @@ export function createCluster(clusterOptions: IORedisClusterOptions) {
 export const createClusterToken = (clusterToken: string) => {
     return `${CLUSTER_BASE}${clusterToken}`;
 }
-
-export const logger = new Logger('RedisClusterModule');
