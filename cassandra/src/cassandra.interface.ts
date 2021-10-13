@@ -7,7 +7,7 @@ export interface CassandraOptions extends DseClientOptions {
 }
 
 export interface CassandraModuleOptions extends CassandraOptions {
-    clientName: string;
+    clientName?: string;
 }
 
 export interface CassandraModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'> {
