@@ -1,7 +1,6 @@
-import { DynamicModule, Global, Inject, Logger, Module, OnApplicationShutdown } from "@nestjs/common";
+import { DynamicModule, Global, Inject, Module, OnApplicationShutdown } from "@nestjs/common";
 import { ModuleRef } from "@nestjs/core";
-import { DseClientOptions, Client } from 'cassandra-driver';
-import { CASSANDRA_CLIENT } from "src";
+import { Client } from "cassandra-driver";
 import { CASSANDRA_OPTIONS, CASSANDRA_TOKEN } from "./cassandra.constants";
 import { CassandraModuleAsyncOptions, CassandraModuleOptions, CassandraOptions } from "./cassandra.interface";
 import { createCassandraAsyncOptions, createCassandraOptions, createClientProvider, createTokenProvider } from "./cassandra.providers";

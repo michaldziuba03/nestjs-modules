@@ -3,7 +3,7 @@ import { CASSANDRA_DEFAULT_TOKEN, CASSANDRA_OPTIONS, CASSANDRA_TOKEN } from "./c
 import { CassandraModuleAsyncOptions, CassandraModuleOptions } from "./cassandra.interface";
 import { createCassandraToken, createClient } from "./cassandra.utils";
 
-export function createTokenProvider(token: string): Provider {
+export function createTokenProvider(token: string = CASSANDRA_DEFAULT_TOKEN): Provider {
     return {
         provide: CASSANDRA_TOKEN,
         useValue: token,
