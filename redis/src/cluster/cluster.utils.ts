@@ -13,6 +13,7 @@ export function validateClusterToken(token: string = CLUSTER_DEFAULT_TOKEN) {
     }
 
     tokens.push(token);
+    return token;
 }
 
 export function createCluster(clusterOptions: IORedisClusterOptions) {
@@ -24,6 +25,6 @@ export function createCluster(clusterOptions: IORedisClusterOptions) {
     return cluster;
 }
 
-export const createClusterToken = (clusterToken: string) => {
+export const createClusterToken = (clusterToken: string = CLUSTER_DEFAULT_TOKEN) => {
     return `${CLUSTER_BASE}${clusterToken}`;
 }

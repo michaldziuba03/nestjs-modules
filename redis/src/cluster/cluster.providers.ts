@@ -1,9 +1,9 @@
 import { Provider } from "@nestjs/common";
-import { CLUSTER_DEFAULT_TOKEN, CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster.constants";
+import { CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster.constants";
 import { ClusterModuleAsyncOptions, IORedisClusterOptions } from "./cluster.interface";
 import { createCluster, createClusterToken } from "./cluster.utils";
 
-export function createTokenProvider(token: string = CLUSTER_DEFAULT_TOKEN): Provider {
+export function createTokenProvider(token: string): Provider {
     return {
         provide: CLUSTER_TOKEN,
         useValue: token,
@@ -12,7 +12,7 @@ export function createTokenProvider(token: string = CLUSTER_DEFAULT_TOKEN): Prov
 
 export function createClusterProvider(token: string): Provider {
     return {
-        provide: createClusterToken(token || CLUSTER_DEFAULT_TOKEN),
+        provide: createClusterToken(token),
         inject: [CLUSTER_OPTIONS],
         useFactory: createCluster,
     }
