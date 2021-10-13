@@ -1,11 +1,10 @@
-import { Module, Global, OnApplicationShutdown, DynamicModule, Provider, Logger, Inject } from '@nestjs/common';
+import { Module, Global, OnApplicationShutdown, DynamicModule, Provider, Inject } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { Redis } from 'ioredis'
 import { DEFAULT_CONNECTION_NAME, REDIS_OPTIONS, REDIS_TOKEN } from './redis.constants';
 import { ModuleOptions, RedisModuleAsyncOptions } from './redis.interface';
-import { createClient, getConnectionToken, logger, shutdownClient } from './redis.utils';
-
-const tokens: string[] = [];
+import { createClientProvider, createOptionsAsyncProvider, createOptionsProvider, createTokenProvider, validateRedisToken } from './redis.providers';
+import { getConnectionToken, logger, shutdownClient } from './redis.utils';
 
 @Global()
 @Module({})
@@ -19,30 +18,11 @@ export class RedisModule implements OnApplicationShutdown {
     ) {}
 
     static register(options: ModuleOptions): DynamicModule {
-        const token = getConnectionToken(options.name || DEFAULT_CONNECTION_NAME);
-        if (tokens.includes(token)) {
-            throw new Error('Connection names duplication!');
-        }
-
-        tokens.push(token);
-
-        const clientToken: Provider = {
-            provide: REDIS_TOKEN,
-            useValue: token,
-        }
-
-        const clientOptions: Provider = {
-            provide: REDIS_OPTIONS,
-            useValue: options,
-        }
-
-        const clientProvider: Provider = {
-            provide: token,
-            inject: [REDIS_OPTIONS],
-            useFactory: createClient,
-        }
-
-        logger.log('Redis module created');
+        const token = options.name;
+        validateRedisToken(token);
+        const clientToken = createTokenProvider(token);
+        const clientOptions = createOptionsProvider(options);
+        const clientProvider = createClientProvider(token);
 
         return {
             module: RedisModule,
@@ -52,31 +32,11 @@ export class RedisModule implements OnApplicationShutdown {
     }
     
     static registerAsync(options: RedisModuleAsyncOptions): DynamicModule {
-        const token = getConnectionToken(options.name || DEFAULT_CONNECTION_NAME);
-        if (tokens.includes(token)) {
-            throw new Error('Connection names duplication!');
-        }
-
-        tokens.push(token);
-
-        const clientToken: Provider = {
-            provide: REDIS_TOKEN,
-            useValue: token,
-        }
-
-        const clientOptions: Provider = {
-            provide: REDIS_OPTIONS,
-            inject: options.inject,
-            useFactory: options.useFactory,
-        }
-
-        const clientProvider: Provider = {
-            provide: token,
-            inject: [REDIS_OPTIONS],
-            useFactory: createClient,
-        }
-
-        logger.log('Redis module created');
+        const token = options.name;
+        validateRedisToken(token);
+        const clientToken = createTokenProvider(token);
+        const clientOptions = createOptionsAsyncProvider(options);
+        const clientProvider = createClientProvider(token);
 
         return {
             module: RedisModule,
@@ -87,7 +47,7 @@ export class RedisModule implements OnApplicationShutdown {
     }
     
     async onApplicationShutdown() {
-        const token = this.clientToken;
+        const token = getConnectionToken(this.clientToken || DEFAULT_CONNECTION_NAME);
         const client = this.moduleRef.get<Redis>(token);
 
         if (this.clientOptions.beforeShutdown) {
@@ -95,7 +55,7 @@ export class RedisModule implements OnApplicationShutdown {
         }
 
         if (client) {
-            logger.log(`Closing Redis connection from ${token} module`);
+            logger.log(`Closing Redis connection: ${this.clientToken}`);
             await shutdownClient(client);
         }
     }
