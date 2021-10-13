@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { CASSANDRA_CLIENT, CASSANDRA_DEFAULT_TOKEN } from './cassandra.constants';
+import { CASSANDRA_DEFAULT_TOKEN } from './cassandra.constants';
 import { createCassandraToken } from './cassandra.utils';
 
 export const InjectCassandra = (clientName: string = CASSANDRA_DEFAULT_TOKEN) => {

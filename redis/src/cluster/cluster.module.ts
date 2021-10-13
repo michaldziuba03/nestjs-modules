@@ -49,13 +49,13 @@ export class RedisClusterModule implements OnApplicationShutdown {
         const token = createClusterToken(this.token);
         const cluster = this.moduleRef.get<Cluster>(token);
 
-        if (this.clusterOptions.beforeShutdown) {
-            await this.clusterOptions.beforeShutdown(cluster);
-        }
-
         if (cluster) {
+            if (this.clusterOptions.beforeShutdown) {
+                await this.clusterOptions.beforeShutdown(cluster);
+            }
+            
             await shutdownClient(cluster);
-            logger.log(`Closed connections for cluster:${this.token}`);
+            logger.log(`Closed connections for cluster: ${this.token}`);
         }
     }
 }

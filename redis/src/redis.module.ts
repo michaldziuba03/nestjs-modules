@@ -51,11 +51,11 @@ export class RedisModule implements OnApplicationShutdown {
         const token = getConnectionToken(this.clientToken || DEFAULT_CONNECTION_NAME);
         const client = this.moduleRef.get<Redis>(token);
 
-        if (this.clientOptions.beforeShutdown) {
-            await this.clientOptions.beforeShutdown(client);
-        }
-
         if (client) {
+            if (this.clientOptions.beforeShutdown) {
+                await this.clientOptions.beforeShutdown(client);
+            }
+            
             logger.log(`Closing Redis connection: ${this.clientToken}`);
             await shutdownClient(client);
         }

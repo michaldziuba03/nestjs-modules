@@ -5,7 +5,7 @@ import { CASSANDRA_CLIENT } from "src";
 import { CASSANDRA_OPTIONS, CASSANDRA_TOKEN } from "./cassandra.constants";
 import { CassandraModuleAsyncOptions, CassandraModuleOptions, CassandraOptions } from "./cassandra.interface";
 import { createCassandraAsyncOptions, createCassandraOptions, createClientProvider, createTokenProvider } from "./cassandra.providers";
-import { createCassandraToken, shutdownClient, validateCassandraToken } from "./cassandra.utils";
+import { createCassandraToken, logger, shutdownClient, validateCassandraToken } from "./cassandra.utils";
 
 @Global()
 @Module({})
@@ -47,11 +47,14 @@ export class CassandraModule implements OnApplicationShutdown {
     }
 
     async onApplicationShutdown() {
-        Logger.log('Shut down Cassandra...', 'CassandraModule');
         const token = createCassandraToken(this.clientToken);
         const client = this.moduleRef.get<Client>(token);
         if (client) {
-            await this.clientOptions.beforeShutdown(client);
+            if (this.clientOptions.beforeShutdown) {
+                await this.clientOptions.beforeShutdown(client);
+            }
+            
+            logger.log(`Closing Cassandra connection: ${this.clientToken}`);
             await shutdownClient(client);
         }
     }
