@@ -13,6 +13,8 @@ export function validateRedisToken(token: string = DEFAULT_CONNECTION_NAME) {
     }
 
     tokens.push(token);
+
+    return token;
 }
 
 export function createClient(options: RedisModuleOptions) {
@@ -24,6 +26,6 @@ export function createClient(options: RedisModuleOptions) {
     return client;
 }
 
-export function getConnectionToken(name: string) {
+export function getConnectionToken(name: string = DEFAULT_CONNECTION_NAME) {
     return `${REDIS_BASE_TOKEN}${name}`;
 }

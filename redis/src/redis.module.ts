@@ -19,8 +19,7 @@ export class RedisModule implements OnApplicationShutdown {
     ) {}
 
     static register(options: RedisModuleOptions): DynamicModule {
-        const token = options.name;
-        validateRedisToken(token);
+        const token = validateRedisToken(options.name);
         const clientToken = createTokenProvider(token);
         const clientOptions = createOptionsProvider(options);
         const clientProvider = createClientProvider(token);
@@ -33,8 +32,7 @@ export class RedisModule implements OnApplicationShutdown {
     }
     
     static registerAsync(options: RedisModuleAsyncOptions): DynamicModule {
-        const token = options.name;
-        validateRedisToken(token);
+        const token = validateRedisToken(options.name);
         const clientToken = createTokenProvider(token);
         const clientOptions = createOptionsAsyncProvider(options);
         const clientProvider = createClientProvider(token);
@@ -48,7 +46,7 @@ export class RedisModule implements OnApplicationShutdown {
     }
     
     async onApplicationShutdown() {
-        const token = getConnectionToken(this.clientToken || DEFAULT_CONNECTION_NAME);
+        const token = getConnectionToken(this.clientToken);
         const client = this.moduleRef.get<Redis>(token);
 
         if (client) {
