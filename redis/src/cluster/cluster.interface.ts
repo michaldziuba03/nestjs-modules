@@ -4,7 +4,7 @@ import { Cluster, ClusterNode, ClusterOptions } from "ioredis";
 export interface IORedisClusterOptions {
     options?: ClusterOptions,
     nodes: ClusterNode[],
-    onReady?: (cluster: Cluster) => any;
+    onReady?: (cluster: Cluster) => any | Promise<any>;
     beforeShutdown?: (cluster: Cluster) => any | Promise<any>;
 }
 

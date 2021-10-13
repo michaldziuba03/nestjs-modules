@@ -2,7 +2,7 @@ import { ModuleMetadata } from '@nestjs/common';
 import { Redis, RedisOptions } from 'ioredis';
 
 export interface RedisModuleOptions extends RedisOptions {
-    onReady?: (client: Redis) => any;
+    onReady?: (client: Redis) => any | Promise<any>;
     beforeShutdown?: (client: Redis) => any | Promise<any>;
 }
 

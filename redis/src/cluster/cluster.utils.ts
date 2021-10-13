@@ -16,10 +16,10 @@ export function validateClusterToken(token: string = CLUSTER_DEFAULT_TOKEN) {
     return token;
 }
 
-export function createCluster(clusterOptions: IORedisClusterOptions) {
+export async function createCluster(clusterOptions: IORedisClusterOptions) {
     const cluster = new IORedis.Cluster(clusterOptions.nodes, clusterOptions.options);
     if (clusterOptions.onReady) {
-        clusterOptions.onReady(cluster);
+        await clusterOptions.onReady(cluster);
     }
     
     return cluster;

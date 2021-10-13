@@ -17,10 +17,10 @@ export function validateRedisToken(token: string = DEFAULT_CONNECTION_NAME) {
     return token;
 }
 
-export function createClient(options: RedisModuleOptions) {
+export async function createClient(options: RedisModuleOptions) {
     const client = new IORedis(options);
     if (options.onReady) {
-        options.onReady(client);
+        await options.onReady(client);
     }
     
     return client;
