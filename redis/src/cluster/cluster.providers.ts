@@ -3,7 +3,7 @@ import { CLUSTER_DEFAULT_TOKEN, CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster
 import { ClusterModuleAsyncOptions, IORedisClusterOptions } from "./cluster.interface";
 import { createCluster, createClusterToken } from "./cluster.utils";
 
-export function createTokenProvider(token: string): Provider {
+export function createTokenProvider(token: string = CLUSTER_DEFAULT_TOKEN): Provider {
     return {
         provide: CLUSTER_TOKEN,
         useValue: token,

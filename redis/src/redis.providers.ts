@@ -3,7 +3,7 @@ import { DEFAULT_CONNECTION_NAME, REDIS_OPTIONS, REDIS_TOKEN } from "./redis.con
 import { RedisModuleOptions, RedisModuleAsyncOptions } from "./redis.interface";
 import { createClient, getConnectionToken } from "./redis.utils";
 
-export function createTokenProvider(token: string): Provider {
+export function createTokenProvider(token: string = DEFAULT_CONNECTION_NAME): Provider {
     return {
         provide: REDIS_TOKEN,
         useValue: token,
