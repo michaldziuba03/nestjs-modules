@@ -1,6 +1,6 @@
 {
   "name": "@mich4l/nestjs-cassandra",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Cassandra Nest.js connector module",
   "author": "mich4l",
   "private": false,
