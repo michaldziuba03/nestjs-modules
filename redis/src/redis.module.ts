@@ -3,7 +3,7 @@ import { ModuleRef } from '@nestjs/core';
 import { Redis } from 'ioredis'
 import { shutdownClient } from './common/common.utils';
 import { DEFAULT_CONNECTION_NAME, REDIS_OPTIONS, REDIS_TOKEN } from './redis.constants';
-import { ModuleOptions, RedisModuleAsyncOptions } from './redis.interface';
+import { RedisModuleOptions, RedisModuleAsyncOptions } from './redis.interface';
 import { createClientProvider, createOptionsAsyncProvider, createOptionsProvider, createTokenProvider } from './redis.providers';
 import { getConnectionToken, logger, validateRedisToken } from './redis.utils';
 
@@ -14,11 +14,11 @@ export class RedisModule implements OnApplicationShutdown {
         @Inject(REDIS_TOKEN) 
         private readonly clientToken: string,
         @Inject(REDIS_OPTIONS)
-        private readonly clientOptions: ModuleOptions,
+        private readonly clientOptions: RedisModuleOptions,
         private readonly moduleRef: ModuleRef,
     ) {}
 
-    static register(options: ModuleOptions): DynamicModule {
+    static register(options: RedisModuleOptions): DynamicModule {
         const token = options.name;
         validateRedisToken(token);
         const clientToken = createTokenProvider(token);

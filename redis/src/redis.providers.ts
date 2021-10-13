@@ -1,6 +1,6 @@
 import { Provider } from "@nestjs/common";
 import { DEFAULT_CONNECTION_NAME, REDIS_OPTIONS, REDIS_TOKEN } from "./redis.constants";
-import { ModuleOptions, RedisModuleAsyncOptions } from "./redis.interface";
+import { RedisModuleOptions, RedisModuleAsyncOptions } from "./redis.interface";
 import { createClient, getConnectionToken } from "./redis.utils";
 
 export function createTokenProvider(token: string): Provider {
@@ -18,7 +18,7 @@ export function createClientProvider(token: string): Provider {
     }
 }
 
-export function createOptionsProvider(options: ModuleOptions): Provider {
+export function createOptionsProvider(options: RedisModuleOptions): Provider {
     return  {
         provide: REDIS_OPTIONS,
         useValue: options,

@@ -2,7 +2,7 @@ import { Logger } from "@nestjs/common";
 import IORedis from "ioredis";
 import { DuplicationError } from "./errors/DuplicationError";
 import { DEFAULT_CONNECTION_NAME, REDIS_BASE_TOKEN, REDIS_CONTEXT } from "./redis.constants";
-import { ModuleOptions } from "./redis.interface";
+import { RedisModuleOptions } from "./redis.interface";
 
 export const logger = new Logger(REDIS_CONTEXT);
 
@@ -15,7 +15,7 @@ export function validateRedisToken(token: string = DEFAULT_CONNECTION_NAME) {
     tokens.push(token);
 }
 
-export function createClient(options: ModuleOptions) {
+export function createClient(options: RedisModuleOptions) {
     const client = new IORedis(options);
     if (options.onReady) {
         options.onReady(client);
