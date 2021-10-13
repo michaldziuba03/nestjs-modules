@@ -13,6 +13,7 @@ export function validateCassandraToken(token: string = CASSANDRA_DEFAULT_TOKEN) 
     }
 
     tokens.push(token);
+    return token;
 }
 
 export async function createClient(options: CassandraModuleOptions) {
@@ -30,6 +31,6 @@ export async function shutdownClient(client: Client) {
     await client.shutdown();
 }
 
-export function createCassandraToken(token: string) {
+export function createCassandraToken(token: string = CASSANDRA_DEFAULT_TOKEN) {
     return `${CASSANDRA_CLIENT}${token}`;
 }

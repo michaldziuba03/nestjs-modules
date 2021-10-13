@@ -18,8 +18,7 @@ export class CassandraModule implements OnApplicationShutdown {
     ) {}
 
     static register(options: CassandraModuleOptions): DynamicModule {
-        const token = options.clientName;
-        validateCassandraToken(token);
+        const token = validateCassandraToken(options.clientName);
         const tokenProvider = createTokenProvider(token);
         const optionsProvider = createCassandraOptions(options);
         const clientProvider = createClientProvider(token);
@@ -32,8 +31,7 @@ export class CassandraModule implements OnApplicationShutdown {
     }
 
     static registerAsync(options: CassandraModuleAsyncOptions): DynamicModule {
-        const token = options.clientName;
-        validateCassandraToken(token);
+        const token = validateCassandraToken(options.clientName);
         const tokenProvider = createTokenProvider(token);
         const optionsProvider = createCassandraAsyncOptions(options);
         const clientProvider = createClientProvider(token);

@@ -1,9 +1,9 @@
 import { Provider } from "@nestjs/common";
-import { CASSANDRA_DEFAULT_TOKEN, CASSANDRA_OPTIONS, CASSANDRA_TOKEN } from "./cassandra.constants";
+import { CASSANDRA_OPTIONS, CASSANDRA_TOKEN } from "./cassandra.constants";
 import { CassandraModuleAsyncOptions, CassandraModuleOptions } from "./cassandra.interface";
 import { createCassandraToken, createClient } from "./cassandra.utils";
 
-export function createTokenProvider(token: string = CASSANDRA_DEFAULT_TOKEN): Provider {
+export function createTokenProvider(token: string): Provider {
     return {
         provide: CASSANDRA_TOKEN,
         useValue: token,
@@ -12,7 +12,7 @@ export function createTokenProvider(token: string = CASSANDRA_DEFAULT_TOKEN): Pr
 
 export function createClientProvider(token?: string): Provider {
     return {
-        provide: createCassandraToken(token || CASSANDRA_DEFAULT_TOKEN),
+        provide: createCassandraToken(token),
         inject: [CASSANDRA_OPTIONS],
         useFactory: createClient,
     }
