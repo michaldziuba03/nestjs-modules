@@ -1,7 +1,7 @@
 import { Logger } from "@nestjs/common";
-import IORedis, { Cluster, Redis } from "ioredis";
+import IORedis from "ioredis";
 import { DuplicationError } from "./errors/DuplicationError";
-import { DEFAULT_CONNECTION_NAME, RedisClientStatus, REDIS_BASE_TOKEN, REDIS_CONTEXT } from "./redis.constants";
+import { DEFAULT_CONNECTION_NAME, REDIS_BASE_TOKEN, REDIS_CONTEXT } from "./redis.constants";
 import { ModuleOptions } from "./redis.interface";
 
 export const logger = new Logger(REDIS_CONTEXT);
@@ -22,14 +22,6 @@ export function createClient(options: ModuleOptions) {
     }
     
     return client;
-}
-
-export async function shutdownClient(client: Redis | Cluster) {
-    if (client.status === RedisClientStatus.READY) {
-        await client.quit();
-    }
-
-    client.disconnect();
 }
 
 export function getConnectionToken(name: string) {

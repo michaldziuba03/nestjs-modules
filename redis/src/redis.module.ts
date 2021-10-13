@@ -1,10 +1,11 @@
 import { Module, Global, OnApplicationShutdown, DynamicModule, Inject } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { Redis } from 'ioredis'
+import { shutdownClient } from './common/common.utils';
 import { DEFAULT_CONNECTION_NAME, REDIS_OPTIONS, REDIS_TOKEN } from './redis.constants';
 import { ModuleOptions, RedisModuleAsyncOptions } from './redis.interface';
 import { createClientProvider, createOptionsAsyncProvider, createOptionsProvider, createTokenProvider } from './redis.providers';
-import { getConnectionToken, logger, shutdownClient, validateRedisToken } from './redis.utils';
+import { getConnectionToken, logger, validateRedisToken } from './redis.utils';
 
 @Global()
 @Module({})
