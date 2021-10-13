@@ -3,15 +3,6 @@ import { DEFAULT_CONNECTION_NAME, REDIS_OPTIONS, REDIS_TOKEN } from "./redis.con
 import { ModuleOptions, RedisModuleAsyncOptions } from "./redis.interface";
 import { createClient, getConnectionToken } from "./redis.utils";
 
-const tokens: string[] = []
-export function validateRedisToken(token: string = DEFAULT_CONNECTION_NAME) {
-    if (tokens.includes(token)) {
-        throw new Error('Connection names duplication!');
-    }
-
-    tokens.push(token);
-}
-
 export function createTokenProvider(token: string): Provider {
     return {
         provide: REDIS_TOKEN,

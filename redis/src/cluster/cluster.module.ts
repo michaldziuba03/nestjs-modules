@@ -1,12 +1,11 @@
-import { DynamicModule, Inject, OnApplicationShutdown, Provider } from "@nestjs/common";
+import { DynamicModule, Inject, OnApplicationShutdown } from "@nestjs/common";
 import { ModuleRef } from "@nestjs/core";
 import { Cluster } from "ioredis";
 import { shutdownClient } from "src/redis.utils";
-import { CLUSTER_DEFAULT_TOKEN, CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster.constants";
+import { CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster.constants";
 import { ClusterModuleAsyncOptions, ClusterModuleOptions, IORedisClusterOptions } from "./cluster.interface";
-import { createCluster, createClusterToken, logger } from "./cluster.utils";
-
-const tokens: string[] = [];
+import { createClusterProvider, createOptionsAsyncProvider, createOptionsProvider, createTokenProvider } from "./cluster.providers";
+import { createClusterToken, logger, validateClusterToken } from "./cluster.utils";
 
 export class RedisClusterModule implements OnApplicationShutdown {
     constructor(
@@ -18,26 +17,11 @@ export class RedisClusterModule implements OnApplicationShutdown {
     ) {}
 
     register(options: ClusterModuleOptions): DynamicModule {
-        options.clusterToken = options.clusterToken || CLUSTER_DEFAULT_TOKEN;
-        if (tokens.includes(options.clusterToken)) {
-            throw new Error('Cluster tokens duplication!');
-        }
-
-        const tokenProvider: Provider = {
-            provide: CLUSTER_TOKEN,
-            useValue: options.clusterToken,
-        }
-
-        const optionsProvider: Provider = {
-            provide: CLUSTER_OPTIONS,
-            useValue: options.options,
-        }
-
-        const clusterProvider: Provider = {
-            provide: createClusterToken(options.clusterToken),
-            inject: [CLUSTER_OPTIONS],
-            useFactory: createCluster,
-        }
+        const token = options.clusterToken;
+        validateClusterToken(token);
+        const tokenProvider = createTokenProvider(token);
+        const optionsProvider = createOptionsProvider(options);
+        const clusterProvider = createClusterProvider(token);
 
         return {
             module: RedisClusterModule,
@@ -47,27 +31,11 @@ export class RedisClusterModule implements OnApplicationShutdown {
     }
 
     registerAsync(options: ClusterModuleAsyncOptions): DynamicModule {
-        options.clusterToken = options.clusterToken || CLUSTER_DEFAULT_TOKEN;
-        if (tokens.includes(options.clusterToken)) {
-            throw new Error('Cluster tokens duplication!');
-        }
-
-        const tokenProvider: Provider = {
-            provide: CLUSTER_TOKEN,
-            useValue: options.clusterToken,
-        }
-
-        const optionsProvider: Provider = {
-            provide: CLUSTER_OPTIONS,
-            useFactory: options.useFactory,
-            inject: options.inject,
-        }
-
-        const clusterProvider: Provider = {
-            provide: createClusterToken(options.clusterToken),
-            inject: [CLUSTER_OPTIONS],
-            useFactory: createCluster,
-        }
+        const token = options.clusterToken;
+        validateClusterToken(token);
+        const tokenProvider = createTokenProvider(token);
+        const optionsProvider = createOptionsAsyncProvider(options);
+        const clusterProvider = createClusterProvider(token);
 
         return {
             module: RedisClusterModule,

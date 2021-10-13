@@ -1,9 +1,19 @@
 import { Logger } from "@nestjs/common";
-import IORedis, { Cluster, Redis, RedisOptions } from "ioredis";
-import { RedisClientStatus, REDIS_BASE_TOKEN, REDIS_CONTEXT } from "./redis.constants";
+import IORedis, { Cluster, Redis } from "ioredis";
+import { DuplicationError } from "./errors/DuplicationError";
+import { DEFAULT_CONNECTION_NAME, RedisClientStatus, REDIS_BASE_TOKEN, REDIS_CONTEXT } from "./redis.constants";
 import { ModuleOptions } from "./redis.interface";
 
 export const logger = new Logger(REDIS_CONTEXT);
+
+const tokens: string[] = []
+export function validateRedisToken(token: string = DEFAULT_CONNECTION_NAME) {
+    if (tokens.includes(token)) {
+        throw new DuplicationError('Connection', token);
+    }
+
+    tokens.push(token);
+}
 
 export function createClient(options: ModuleOptions) {
     const client = new IORedis(options);
