@@ -10,7 +10,7 @@ export function createTokenProvider(token: string): Provider {
     }
 }
 
-export function createClientProvider(token: string): Provider {
+export function createClientProvider(token?: string): Provider {
     return {
         provide: createCassandraToken(token || CASSANDRA_DEFAULT_TOKEN),
         inject: [CASSANDRA_OPTIONS],

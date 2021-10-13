@@ -34,6 +34,7 @@ export class CassandraModule implements OnApplicationShutdown {
 
     static registerAsync(options: CassandraModuleAsyncOptions): DynamicModule {
         const token = options.clientName;
+        validateCassandraToken(token);
         const tokenProvider = createTokenProvider(token);
         const optionsProvider = createCassandraAsyncOptions(options);
         const clientProvider = createClientProvider(token);
