@@ -4,7 +4,6 @@ import { getConnectionToken } from "./redis.utils"
 
 export const InjectRedis = (connectionName: string = DEFAULT_CONNECTION_NAME) => {
     const token = getConnectionToken(connectionName);
-    
     return Inject(token);
 }
 
