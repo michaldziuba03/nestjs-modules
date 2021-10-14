@@ -18,7 +18,7 @@ export class RedisClusterModule implements OnApplicationShutdown {
         private readonly moduleRef: ModuleRef,
     ) {}
 
-    register(options: ClusterModuleOptions): DynamicModule {
+    static register(options: ClusterModuleOptions): DynamicModule {
         const token = validateClusterToken(options.clusterToken);
         const tokenProvider = createTokenProvider(token);
         const optionsProvider = createOptionsProvider(options);
@@ -31,7 +31,7 @@ export class RedisClusterModule implements OnApplicationShutdown {
         }
     }
 
-    registerAsync(options: ClusterModuleAsyncOptions): DynamicModule {
+    static registerAsync(options: ClusterModuleAsyncOptions): DynamicModule {
         const token = validateClusterToken(options.clusterToken);
         const tokenProvider = createTokenProvider(token);
         const optionsProvider = createOptionsAsyncProvider(options);
