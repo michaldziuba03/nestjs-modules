@@ -15,12 +15,14 @@ Redis module based on npm library `ioredis`.
 ### Installation
 #### npm
 ```bash
-npm install @mich4l/nestjs-redis
+npm install --save @mich4l/nestjs-redis ioredis
+npm install --save-dev @types/ioredis
 ```
 
 #### Yarn
 ```bash
-yarn add @mich4l/nestjs-redis
+yarn add @mich4l/nestjs-redis ioredis
+yarn add --dev @types/ioredis
 ```
 
 ### Example
