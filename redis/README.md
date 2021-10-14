@@ -9,8 +9,8 @@ Redis module based on npm library `ioredis`.
 - Simple codebase
 - Graceful shutdown
 - Multiple connections
-- Cluster module (in development)
-- Simple lifecycle hooks (onStart, beforeShutdown) (in development)
+- Cluster module (in development and not tested yet)
+- Simple lifecycle hooks (`onReady`, `beforeShutdown`)
 
 ### Installation
 #### npm
@@ -83,7 +83,7 @@ export class ExampleService {
 export class AppModule {}
 ```
 
-### OnReady method
+### Lifecycle hooks
 ```ts
 @Module({
   imports: [
@@ -93,6 +93,9 @@ export class AppModule {}
       port: 6379,
       onReady: (client: Redis) => {
         client.on('error', handleError);
+      },
+      beforeShutdown: async (client: Redis) => {
+        await client.flushall();
       }
     }),
   ]
