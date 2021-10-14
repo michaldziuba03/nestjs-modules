@@ -39,19 +39,32 @@ describe('Redis connection', () => {
         await module.close();
     });
 
+    it('checks if instances are not same', async () => {
+        expect(redisClient).not.toMatchObject(secondRedis);
+    });
+
+    const PONG = 'PONG';
+    it('check if first client connection works', async () => {
+        const result = await redisClient.ping();
+        expect(result).toEqual(PONG);
+    });
+
+    it('check if second client connection works', async () => {
+        const result = await secondRedis.ping();
+        expect(result).toEqual(PONG);
+    });
+
     const key = 'HELLO';
     const value = 'WORLD';
 
     it('should successfully create HELLO key', async () => {
-        
         await redisClient.set(key, value);
 
         const testResult = await redisClient.get(key);
-        console.log(testResult);
         expect(testResult).toEqual(value);
     });
 
-    it('should check if redis connections colision is possible', async () => {
+    it('check if redis connections colision is possible', async () => {
         const result = await secondRedis.get(key);
         expect(result).toBeFalsy();
 
