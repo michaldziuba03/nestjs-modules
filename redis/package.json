@@ -1,6 +1,6 @@
 {
   "name": "@mich4l/nestjs-redis",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Redis Nest.js connector module",
   "keywords": ["nestjs", "redis", "typescript", "database", "connector"],
   "author": "mich4l",

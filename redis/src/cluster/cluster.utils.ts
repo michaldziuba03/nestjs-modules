@@ -1,6 +1,6 @@
 import { Logger } from "@nestjs/common";
 import IORedis from "ioredis";
-import { DuplicationError } from "src/errors/DuplicationError";
+import { DuplicationError } from "../errors/DuplicationError";
 import { CLUSTER_BASE, CLUSTER_CONTEXT, CLUSTER_DEFAULT_TOKEN } from "./cluster.constants";
 import { IORedisClusterOptions } from "./cluster.interface";
 

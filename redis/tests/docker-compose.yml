@@ -1,0 +1,10 @@
+version: '3.6'
+services:
+  test_redis:
+    image: redis:alpine
+    ports:
+      - 2137:6379
+  test_redis2:
+    image: redis:alpine
+    ports:
+      - 2138:6379

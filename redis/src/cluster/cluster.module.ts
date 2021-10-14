@@ -1,7 +1,7 @@
 import { DynamicModule, Global, Inject, Module, OnApplicationShutdown } from "@nestjs/common";
 import { ModuleRef } from "@nestjs/core";
 import { Cluster } from "ioredis";
-import { shutdownClient } from "src/common/common.utils";
+import { shutdownClient } from "../common/common.utils";
 import { CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster.constants";
 import { ClusterModuleAsyncOptions, ClusterModuleOptions, IORedisClusterOptions } from "./cluster.interface";
 import { createClusterProvider, createOptionsAsyncProvider, createOptionsProvider, createTokenProvider } from "./cluster.providers";

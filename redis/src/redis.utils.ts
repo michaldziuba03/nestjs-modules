@@ -13,7 +13,6 @@ export function validateRedisToken(token: string = DEFAULT_CONNECTION_NAME) {
     }
 
     tokens.push(token);
-
     return token;
 }
 
