@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/43048524/136818357-bcc8e3b9-0e28-4a9c-ad3d-e90a6de78713.png" width="320" alt="Nest Redis Logo" />
 </p>
 
-## Nest.js Redis module (in development)
+## Nest.js Redis module
 Redis module based on npm library `ioredis`.
 
 #### Features:
