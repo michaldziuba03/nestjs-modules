@@ -6,11 +6,6 @@ Database connectors monorepo for Nest.js
 npm i @mich4l/nestjs-cassandra
 ```
 
-### Slonik PostgreSQL connector  (not exists yet)
-```bash
-npm i @mich4l/nestjs-slonik
-```
-
 ### Redis connector
 ```bash
 npm install --save @mich4l/nestjs-redis ioredis
