@@ -14,10 +14,13 @@ describe('Redis connection', () => {
                     host: 'localhost',
                     port: 2137.
                 }),
-                RedisModule.register({
+                RedisModule.registerAsync({
                     name: 'second',
-                    port: 2138,
-                })
+                    useFactory: () => ({
+                        host: 'localhost',
+                        port: 2138,
+                    })
+                }),
             ]
         }).compile();
 
