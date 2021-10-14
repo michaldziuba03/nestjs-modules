@@ -1,4 +1,4 @@
-## Testing library @mich4l/nestjs-redis
+## Testing @mich4l/nestjs-redis
 You need:
 - docker
 - docker-compose

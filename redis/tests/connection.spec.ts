@@ -3,7 +3,7 @@ import { Redis } from 'ioredis';
 import { RedisModule, injectRedisToken } from '../src';
 
 describe('Redis connection', () => {
-    let redisClient: Redis;
+    let firstRedis: Redis;
     let secondRedis: Redis;
     let module: TestingModule;
 
@@ -26,26 +26,26 @@ describe('Redis connection', () => {
 
         module.enableShutdownHooks();
         // FIRST REDIS INSTANCE:
-        const token = injectRedisToken();
-        redisClient = module.get<Redis>(token);
+        const firstToken = injectRedisToken();
+        firstRedis = module.get<Redis>(firstToken);
         // SECOND REDIS INSTANCE:
         const secondToken = injectRedisToken('second');
         secondRedis = module.get<Redis>(secondToken);
     });
 
     afterAll(async () => {
-        await redisClient.flushall();
+        await firstRedis.flushall();
         await secondRedis.flushall();
         await module.close();
     });
 
     it('checks if instances are not same', async () => {
-        expect(redisClient).not.toMatchObject(secondRedis);
+        expect(firstRedis).not.toMatchObject(secondRedis);
     });
 
     const PONG = 'PONG';
     it('check if first client connection works', async () => {
-        const result = await redisClient.ping();
+        const result = await firstRedis.ping();
         expect(result).toEqual(PONG);
     });
 
@@ -58,9 +58,9 @@ describe('Redis connection', () => {
     const value = 'WORLD';
 
     it('should successfully create HELLO key', async () => {
-        await redisClient.set(key, value);
+        await firstRedis.set(key, value);
 
-        const testResult = await redisClient.get(key);
+        const testResult = await firstRedis.get(key);
         expect(testResult).toEqual(value);
     });
 
@@ -68,7 +68,7 @@ describe('Redis connection', () => {
         const result = await secondRedis.get(key);
         expect(result).toBeFalsy();
 
-        const originalResult = await redisClient.get(key);
+        const originalResult = await firstRedis.get(key);
         expect(originalResult).not.toEqual(result);
     });
 });
