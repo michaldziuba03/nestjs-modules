@@ -11,7 +11,8 @@ npm i @mich4l/nestjs-cassandra
 npm i @mich4l/nestjs-slonik
 ```
 
-### Redis connector (in development)
+### Redis connector
 ```bash
-npm i @mich4l/nestjs-redis
+npm install --save @mich4l/nestjs-redis ioredis
+npm install --save-dev @types/ioredis
 ```
