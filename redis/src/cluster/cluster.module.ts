@@ -1,4 +1,4 @@
-import { DynamicModule, Inject, OnApplicationShutdown } from "@nestjs/common";
+import { DynamicModule, Global, Inject, Module, OnApplicationShutdown } from "@nestjs/common";
 import { ModuleRef } from "@nestjs/core";
 import { Cluster } from "ioredis";
 import { shutdownClient } from "src/common/common.utils";
@@ -7,6 +7,8 @@ import { ClusterModuleAsyncOptions, ClusterModuleOptions, IORedisClusterOptions 
 import { createClusterProvider, createOptionsAsyncProvider, createOptionsProvider, createTokenProvider } from "./cluster.providers";
 import { createClusterToken, logger, validateClusterToken } from "./cluster.utils";
 
+@Global()
+@Module({})
 export class RedisClusterModule implements OnApplicationShutdown {
     constructor(
         @Inject(CLUSTER_TOKEN)
