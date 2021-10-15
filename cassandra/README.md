@@ -14,12 +14,12 @@ Cassandra module based on npm library `cassandra-driver`.
 ### Installation
 #### npm
 ```bash
-npm install @mich4l/nestjs-cassandra
+npm install @mich4l/nestjs-cassandra cassandra-driver
 ```
 
 #### Yarn
 ```bash
-yarn add @mich4l/nestjs-cassandra
+yarn add @mich4l/nestjs-cassandra cassandra-driver
 ```
 
 ### Examples
