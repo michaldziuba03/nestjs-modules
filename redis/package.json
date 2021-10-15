@@ -30,10 +30,7 @@
     "ioredis": "4.x",
     "@types/ioredis": "4.x",
     "@nestjs/common": "8.x",
-    "@nestjs/core": "8.x",
-    "reflect-metadata": "^0.1.13",
-    "rimraf": "3.x",
-    "rxjs": "7.x"
+    "@nestjs/core": "8.x"
   },
   "devDependencies": {
     "@nestjs/common": "^8.0.0",
