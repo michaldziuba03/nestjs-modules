@@ -44,7 +44,7 @@ export class AppModule {}
 `example.service.ts`
 ```ts
 import { Inject, Injectable } from '@nestjs/common';
-import { InjectCassandra } from '@mich4l/nestjs-redis';
+import { InjectRedis } from '@mich4l/nestjs-redis';
 import { Redis } from 'ioredis';
 
 @Injectable()
