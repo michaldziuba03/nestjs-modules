@@ -13,12 +13,14 @@ describe('Cassandra connection', () => {
                 CassandraModule.register({
                     contactPoints: ['127.0.0.1'],
                     localDataCenter: 'datacenter1',
+                    keyspace: 'my_keyspace',
                  }),
                 CassandraModule.registerAsync({
                     clientName: 'second',
                     useFactory: () => ({
                         contactPoints: ['127.0.0.1:9043'],
                         localDataCenter: 'datacenter1',
+                        keyspace: 'my_keyspace',
                     }),
                 }),
             ]
@@ -32,31 +34,14 @@ describe('Cassandra connection', () => {
         const secondToken = injectCassandraToken('second');
         secondCassandra = module.get<Client>(secondToken);
 
-        const createKeyspace = "create keyspace IF NOT EXISTS my_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' }";
-        const createTable = "create table IF NOT EXISTS students (name varchar primary key)"
-        await firstCassandra.execute(createKeyspace);
-        await secondCassandra.execute(createKeyspace);
-
-        await firstCassandra.execute('use my_keyspace');
-        await secondCassandra.execute('use my_keyspace');
-        
-        await firstCassandra.execute(createTable);
-        await secondCassandra.execute(createTable);
 
         await firstCassandra.connect();
         await secondCassandra.connect();
     });
 
     afterAll(async () => {
-        const dropTable = 'drop table students';
-        const dropKeyspace = 'drop keyspace my_keyspace';
-
-        await firstCassandra.execute(dropTable);
-        await secondCassandra.execute(dropTable);
-        
-        await firstCassandra.execute(dropKeyspace);
-        await secondCassandra.execute(dropKeyspace);
-
+        await firstCassandra.execute('TRUNCATE students');
+        await secondCassandra.execute('TRUNCATE students');
         await module.close();
     });
 
@@ -64,7 +49,6 @@ describe('Cassandra connection', () => {
         expect(firstCassandra).not.toMatchObject(secondCassandra);
     });
 
-    const PONG = 'PONG';
     it('check if first client connection works', async () => {
         await firstCassandra.execute("INSERT INTO students (name) VALUES ('jano')");
         const result = await firstCassandra.execute('SELECT * FROM students');
