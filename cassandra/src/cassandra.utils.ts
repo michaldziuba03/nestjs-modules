@@ -1,7 +1,6 @@
 import { Logger } from "@nestjs/common";
 import { Client } from "cassandra-driver";
-import { CASSANDRA_CLIENT } from "src";
-import { CASSANDRA_CONTEXT, CASSANDRA_DEFAULT_TOKEN } from "./cassandra.constants";
+import { CASSANDRA_CLIENT, CASSANDRA_CONTEXT, CASSANDRA_DEFAULT_TOKEN } from "./cassandra.constants";
 import { CassandraModuleOptions } from "./cassandra.interface";
 
 export const logger = new Logger(CASSANDRA_CONTEXT);
@@ -18,10 +17,9 @@ export function validateCassandraToken(token: string = CASSANDRA_DEFAULT_TOKEN) 
 
 export async function createClient(options: CassandraModuleOptions) {
     const client = new Client(options);
-    await client.connect();
-    logger.log('Cassandra connected successfuly');
-    if (options.onConnect) {
-        await options.onConnect(client);
+    logger.log('Cassandra client instance is ready');
+    if (options.onReady) {
+        await options.onReady(client);
     }
 
     return client;

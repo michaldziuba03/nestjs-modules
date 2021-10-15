@@ -3,5 +3,6 @@
 .eslintrc.js
 nest-cli.json
 test
+tests
 src
 node_modules

@@ -2,6 +2,7 @@
 .prettierrc
 .eslintrc.js
 nest-cli.json
+tests
 test
 src
 node_modules

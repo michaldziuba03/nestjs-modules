@@ -2,7 +2,7 @@ import { ModuleMetadata } from '@nestjs/common';
 import { Client, DseClientOptions } from 'cassandra-driver';
 
 export interface CassandraOptions extends DseClientOptions {
-    onConnect?: (client: Client) => any | Promise<any>;
+    onReady?: (client: Client) => any | Promise<any>;
     beforeShutdown?: (client: Client) => any | Promise<any>;
 }
 

@@ -1,0 +1,12 @@
+version: '3.6'
+services:
+  cassandra_first:
+    image: cassandra
+    restart: always
+    ports:
+      - 9042:9042
+  cassandra_second:
+    image: cassandra
+    restart: always
+    ports:
+      - 9043:9042

@@ -1,8 +1,13 @@
 {
   "name": "@mich4l/nestjs-cassandra",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Cassandra Nest.js connector module",
   "author": "mich4l",
+  "homepage": "https://github.com/mich4ld/nestjs-connectors/tree/main/cassandra",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mich4ld/nestjs-connectors"
+  },
   "private": false,
   "license": "MIT",
   "main": "dist/index.js",
@@ -57,7 +62,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "tests",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"

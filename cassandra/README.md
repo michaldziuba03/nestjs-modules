@@ -2,14 +2,14 @@
   <img src="https://user-images.githubusercontent.com/43048524/136818805-b9fc463e-3829-4dab-b943-f5e18425c6ff.png" width="320" alt="Nest Cassandra Logo" />
 </p>
 
-## Nest.js Cassandra module (in development)
+## Nest.js Cassandra module
 Cassandra module based on npm library `cassandra-driver`.
 
 #### Features:
 - Simple codebase
 - Graceful shutdown
 - Multiple connections
-- Simple lifecycle hooks (onConnect, beforeShutdown)
+- Simple lifecycle hooks (`onReady`, `beforeShutdown`)
 
 ### Installation
 #### npm
