@@ -1,6 +1,6 @@
 {
   "name": "@mich4l/nestjs-cassandra",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "Cassandra Nest.js connector module",
   "author": "mich4l",
   "homepage": "https://github.com/mich4ld/nestjs-connectors/tree/main/cassandra",
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
+    "cassandra-driver": "^4.6.3",
     "@nestjs/platform-express": "^8.0.0",
     "rimraf": "^3.0.2",
     "@nestjs/schematics": "^8.0.0",
