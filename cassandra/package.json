@@ -1,6 +1,6 @@
 {
   "name": "@mich4l/nestjs-cassandra",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Cassandra Nest.js connector module",
   "author": "mich4l",
   "homepage": "https://github.com/mich4ld/nestjs-connectors/tree/main/cassandra",
@@ -23,14 +23,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
-  "dependencies": {
-    "cassandra-driver": "^4.6.3"
-  },
   "peerDependencies": {
-    "@nestjs/common": "^8.0.0",
-    "@nestjs/core": "^8.0.0",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.2.0"
+    "@nestjs/common": "8.x",
+    "@nestjs/core": "8.x",
+    "cassandra-driver": "4.x"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
