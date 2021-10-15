@@ -18,6 +18,10 @@ export function validateCassandraToken(token: string = CASSANDRA_DEFAULT_TOKEN) 
 export async function createClient(options: CassandraModuleOptions) {
     const client = new Client(options);
     logger.log('Cassandra client instance is ready');
+    if (!options.noConnect) {
+        await client.connect();
+    }
+
     if (options.onReady) {
         await options.onReady(client);
     }

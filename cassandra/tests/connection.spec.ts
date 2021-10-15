@@ -14,6 +14,7 @@ describe('Cassandra connection', () => {
                     contactPoints: ['127.0.0.1'],
                     localDataCenter: 'datacenter1',
                     keyspace: 'my_keyspace',
+                    noConnect: false,
                  }),
                 CassandraModule.registerAsync({
                     clientName: 'second',
@@ -21,6 +22,7 @@ describe('Cassandra connection', () => {
                         contactPoints: ['127.0.0.1:9043'],
                         localDataCenter: 'datacenter1',
                         keyspace: 'my_keyspace',
+                        noConnect: true,
                     }),
                 }),
             ]
@@ -33,10 +35,6 @@ describe('Cassandra connection', () => {
         // SECOND CASSANDRA INSTANCE:
         const secondToken = injectCassandraToken('second');
         secondCassandra = module.get<Client>(secondToken);
-
-
-        await firstCassandra.connect();
-        await secondCassandra.connect();
     });
 
     afterAll(async () => {
@@ -62,7 +60,6 @@ describe('Cassandra connection', () => {
 
         expect(result.rows[0]).toBeDefined();
     });
-
 
     it('check if cassandra connections collision is possible', async () => {
         const query = 'SELECT * FROM students'

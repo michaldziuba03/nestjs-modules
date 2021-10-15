@@ -17,19 +17,19 @@ async function closeConnections() {
     await secondCassandra.shutdown();
 }
 
+async function executeBoth(query) {
+    await firstCassandra.execute(query);
+    await secondCassandra.execute(query);
+}
+
 async function up() {
     const createKeyspace = "CREATE KEYSPACE IF NOT EXISTS my_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' }";
     const useKeyspace = 'USE my_keyspace';
     const createTable = "CREATE TABLE IF NOT EXISTS students (name varchar primary key)";
 
-    await firstCassandra.execute(createKeyspace);
-    await secondCassandra.execute(createKeyspace);
-
-    await firstCassandra.execute(useKeyspace);
-    await secondCassandra.execute(useKeyspace);
-    
-    await firstCassandra.execute(createTable);
-    await secondCassandra.execute(createTable);
+    await executeBoth(createKeyspace);
+    await executeBoth(useKeyspace);
+    await executeBoth(createTable);
 
     console.log('Keyspaces and Tables created');
 }
@@ -39,14 +39,9 @@ async function down() {
     const dropTable = 'DROP TABLE students';
     const dropKeyspace = 'DROP KEYSPACE my_keyspace';
 
-    await firstCassandra.execute(useKeyspace);
-    await secondCassandra.execute(useKeyspace);
-
-    await firstCassandra.execute(dropTable);
-    await secondCassandra.execute(dropTable);
-        
-    await firstCassandra.execute(dropKeyspace);
-    await secondCassandra.execute(dropKeyspace);
+    await executeBoth(useKeyspace);
+    await executeBoth(dropTable);
+    await executeBoth(dropKeyspace);
 
     console.log('Keyspaces and Tables dropped');
 }

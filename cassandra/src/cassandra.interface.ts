@@ -4,6 +4,7 @@ import { Client, DseClientOptions } from 'cassandra-driver';
 export interface CassandraOptions extends DseClientOptions {
     onReady?: (client: Client) => any | Promise<any>;
     beforeShutdown?: (client: Client) => any | Promise<any>;
+    noConnect?: boolean;
 }
 
 export interface CassandraModuleOptions extends CassandraOptions {
