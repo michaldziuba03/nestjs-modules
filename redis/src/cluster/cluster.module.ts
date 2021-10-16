@@ -26,7 +26,7 @@ export class RedisClusterModule implements OnApplicationShutdown {
 
         return {
             module: RedisClusterModule,
-            providers: [tokenProvider, optionsProvider],
+            providers: [tokenProvider, optionsProvider, clusterProvider],
             exports: [clusterProvider],
         }
     }
