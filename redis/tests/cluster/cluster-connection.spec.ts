@@ -6,20 +6,34 @@ import { nodes } from './nodes';
 describe('Redis Cluster connection', () => {
     let module: TestingModule;
     let firstCluster: Cluster;
+    let secondCluster: Cluster;
 
     beforeAll(async () => {
         module = await Test.createTestingModule({
             imports: [
                 RedisClusterModule.register({
                     nodes,
+                }),
+                RedisClusterModule.registerAsync({
+                    clusterToken: 'second',
+                    useFactory: () => ({
+                        nodes,
+                    })
                 })
             ]
         }).compile();
 
         module.enableShutdownHooks();
-        // FIRST REDIS INSTANCE:
+        // FIRST REDIS CLUSTER INSTANCE:
         const firstToken = injectClusterToken();
         firstCluster = module.get<Cluster>(firstToken);
+        // SECOND REDIS CLUSTER INSTANCE:
+        const secondToken = injectClusterToken('second');
+        secondCluster = module.get<Cluster>(secondToken);
+    });
+
+    it('checks if instances are not same', () => {
+        expect(firstCluster).not.toMatchObject(secondCluster);
     });
 
     it('shoud create foo key with bar as value', async () => {
