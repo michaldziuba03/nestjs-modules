@@ -1,17 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Cluster, ClusterNode } from 'ioredis';
+import { Cluster } from 'ioredis';
 import { RedisClusterModule, injectClusterToken } from '../../src';
-
-const nodes: ClusterNode[] = [
-    { host: 'localhost', port: 7000 },
-    { host: 'localhost', port: 7001 },
-    { host: 'localhost', port: 7002 },
-    { host: 'localhost', port: 7003 },
-    { host: 'localhost', port: 7004 },
-    { host: 'localhost', port: 7005 },
-    { host: 'localhost', port: 7006 },
-    { host: 'localhost', port: 7007 }
-]
+import { nodes } from './nodes';
 
 describe('Redis Cluster connection', () => {
     let module: TestingModule;
@@ -22,9 +12,6 @@ describe('Redis Cluster connection', () => {
             imports: [
                 RedisClusterModule.register({
                     nodes,
-                    onReady: () => {
-                        console.log('Ready to use');
-                    }
                 })
             ]
         }).compile();
@@ -45,7 +32,7 @@ describe('Redis Cluster connection', () => {
     });
 
     afterAll(async () => {
-        //await firstCluster.flushall();
+        await firstCluster.flushall();
         await module.close();
     });
 });
