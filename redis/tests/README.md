@@ -26,6 +26,8 @@ $ docker-compose up
 
 Good resource for creating Redis cluster from YouTube: https://www.youtube.com/watch?v=N8BkmdZzxDg
 
+TO-DO: setup cluster in docker-compose
+
 ### Run tests
 #### Yarn
 ```bash
