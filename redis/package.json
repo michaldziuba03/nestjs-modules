@@ -1,6 +1,6 @@
 {
   "name": "@mich4l/nestjs-redis",
-  "version": "0.2.7",
+  "version": "0.2.9",
   "description": "Redis Nest.js connector module",
   "keywords": [
     "nestjs",
@@ -20,12 +20,9 @@
   },
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "nest build && tsc -d --sourceMap ./health/index.ts",
+    "build": "nest build",
+    "build:health": "tsc -d --sourceMap ./health/index.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
