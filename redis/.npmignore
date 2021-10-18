@@ -6,3 +6,4 @@ tests
 test
 src
 node_modules
+health/index.ts
