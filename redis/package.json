@@ -1,6 +1,6 @@
 {
   "name": "@mich4l/nestjs-redis",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Redis Nest.js connector module",
   "keywords": [
     "nestjs",
@@ -11,6 +11,10 @@
   ],
   "author": "mich4l",
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./health": "./dist/health/index.js"
+  },
   "private": false,
   "license": "MIT",
   "homepage": "https://github.com/mich4ld/nestjs-connectors/tree/main/redis",
