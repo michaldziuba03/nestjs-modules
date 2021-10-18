@@ -11,7 +11,7 @@ export class RedisHealthIndicator extends HealthIndicator {
 
             return this.getStatus(key, isHealth);
         } catch (err) {
-            return this.getStatus(key, false);
+            return this.handleErrorMessage(key, err);
         }
     }
 
@@ -22,7 +22,15 @@ export class RedisHealthIndicator extends HealthIndicator {
 
             return this.getStatus(key, isHealth);
         } catch (err) {
-            return this.getStatus(key, false);
+            return this.handleErrorMessage(key, err);
         }
+    }
+
+    handleErrorMessage(key: string, err: unknown) {
+        if (err instanceof Error) {
+            return this.getStatus(key, false, { message: err.message, });
+        }
+
+        return this.getStatus(key, false);
     }
 }
