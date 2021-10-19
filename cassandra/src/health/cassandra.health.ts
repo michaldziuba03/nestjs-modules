@@ -17,7 +17,7 @@ export class CassandraHealthIndicator extends HealthIndicator {
     }
   }
 
-  handleErrorMessage(key: string, err: unknown) {
+  private handleErrorMessage(key: string, err: unknown) {
     if (err instanceof Error) {
       return this.getStatus(key, false, { message: err.message });
     }
