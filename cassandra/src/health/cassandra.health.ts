@@ -9,7 +9,7 @@ export class CassandraHealthIndicator extends HealthIndicator {
       const query = "SELECT release_version FROM system.local";
       const result = await client.execute(query);
 
-      const isHealth = result.first() && typeof result.first() === 'string';
+      const isHealth = result.first() && typeof result.first().release_version === 'string';
       return this.getStatus(key, isHealth);
 
     } catch (err) {
