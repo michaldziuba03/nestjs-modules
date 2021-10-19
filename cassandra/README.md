@@ -9,6 +9,7 @@ Cassandra module based on npm library `cassandra-driver`.
 - Simple codebase
 - Graceful shutdown
 - Multiple connections
+- Terminus integration (in development)
 - Simple lifecycle hooks (`onReady`, `beforeShutdown`)
 
 ### Installation

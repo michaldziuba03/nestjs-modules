@@ -7,3 +7,5 @@ test
 src
 node_modules
 health/index.ts
+tsconfig.json
+tsconfig.build.json
