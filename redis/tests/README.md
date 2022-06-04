@@ -24,7 +24,7 @@ $ docker-compose up
  - 127.0.0.1:7006
  - 127.0.0.1:7007
 
-Good resource for creating Redis cluster from YouTube: https://www.youtube.com/watch?v=N8BkmdZzxDg
+Good resource for creating basic Redis cluster from YouTube: https://www.youtube.com/watch?v=N8BkmdZzxDg
 
 TO-DO: setup cluster in docker-compose
 
