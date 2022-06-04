@@ -30,9 +30,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "peerDependencies": {
-    "@nestjs/common": "8.x",
-    "@nestjs/core": "8.x",
-    "@types/ioredis": "^4.x",
+    "@nestjs/common": "^8.x",
+    "@nestjs/core": "^8.x",
     "ioredis": "^4.x"
   },
   "devDependencies": {

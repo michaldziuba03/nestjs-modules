@@ -32,7 +32,7 @@
   "peerDependencies": {
     "@nestjs/common": "8.x",
     "@nestjs/core": "8.x",
-    "cassandra-driver": "4.x"
+    "cassandra-driver": "^4.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",

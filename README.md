@@ -9,5 +9,4 @@ npm i @mich4l/nestjs-cassandra cassandra-driver
 ### Redis connector
 ```bash
 npm install --save @mich4l/nestjs-redis ioredis
-npm install --save-dev @types/ioredis
 ```
