@@ -84,6 +84,58 @@ export class ExampleService {
 export class AppModule {}
 ```
 
+### Async named connections
+Example with Nest.js config module:
+```ts
+...
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      validationSchema: ConfigSchema,
+    }),
+    RedisModule.registerAsync({
+      name: 'my-redis',
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
+        host: config.get('REDIS_HOST'),
+        port: config.get('REDIS_PORT'),
+      }),
+      ...
+    }),
+})
+export class AppModule {}
+```
+
+### Inject Redis client to `useFactory`
+Example with Nest.js Throttler with Redis storage
+```ts
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      validationSchema: ConfigSchema,
+    }),
+    RedisModule.registerAsync({
+      name: 'my-redis',
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
+        host: config.get('REDIS_HOST'),
+        port: config.get('REDIS_PORT'),
+      }),
+    }),
+    ThrottlerModule.forRootAsync({
+      inject: [injectRedisToken('my-redis')],
+      useFactory: (redis: Redis) => ({
+        storage: new ThrottlerStorageRedisService(redis),
+      })
+    })
+  ]
+})
+export class AppModule {}
+```
+
+
 ### Lifecycle hooks
 ```ts
 @Module({
