@@ -108,7 +108,7 @@ export class AppModule {}
 ```
 
 ### Inject Redis client to `useFactory`
-Example with Nest.js Throttler with Redis storage
+Example with Nest.js Throttler and Redis storage
 ```ts
 @Module({
   imports: [
