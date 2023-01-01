@@ -1,6 +1,6 @@
 {
   "name": "@mich4l/nestjs-redis",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Redis Nest.js connector module",
   "keywords": [
     "nestjs",
@@ -30,9 +30,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "peerDependencies": {
-    "@nestjs/common": "^8",
-    "@nestjs/core": "^8",
-    "ioredis": "^4.0"
+    "@nestjs/common": "^9.0",
+    "@nestjs/core": "^9.0",
+    "ioredis": "^5.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
