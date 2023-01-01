@@ -3,7 +3,7 @@
 </p>
 
 ## Nest.js Redis module
-Redis module based on npm library `ioredis`.
+Redis module based on popular npm library `ioredis`.
 
 #### Features:
 - Simple codebase
