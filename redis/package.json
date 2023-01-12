@@ -1,27 +1,31 @@
 {
   "name": "@mich4l/nestjs-redis",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "Redis Nest.js connector module",
   "keywords": [
     "nestjs",
     "redis",
     "typescript",
     "database",
-    "connector"
+    "connector",
+    "memory",
+    "cache"
   ],
-  "author": "mich4l",
+  "author": "Michał Dziuba",
   "main": "dist/index.js",
   "private": false,
   "license": "MIT",
-  "homepage": "https://github.com/mich4ld/nestjs-connectors/tree/main/redis",
+  "homepage": "https://github.com/michaldziuba03/nestjs-connectors/tree/main/redis",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mich4ld/nestjs-connectors"
+    "url": "https://github.com/michaldziuba03/nestjs-connectors"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "build:health": "tsc -d --sourceMap ./health/index.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
