@@ -1,12 +1,10 @@
 import { ClusterNode } from "ioredis";
 
 export const nodes: ClusterNode[] = [
-  { host: "localhost", port: 7000 },
-  { host: "localhost", port: 7001 },
-  { host: "localhost", port: 7002 },
-  { host: "localhost", port: 7003 },
-  { host: "localhost", port: 7004 },
-  { host: "localhost", port: 7005 },
-  { host: "localhost", port: 7006 },
-  { host: "localhost", port: 7007 },
+  "127.0.0.1:7000",
+  "127.0.0.1:7001",
+  "127.0.0.1:7002",
+  "127.0.0.1:7003",
+  "127.0.0.1:7004",
+  "127.0.0.1:7005",
 ];

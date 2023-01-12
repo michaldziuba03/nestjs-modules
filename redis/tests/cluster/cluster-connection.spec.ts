@@ -33,14 +33,17 @@ describe("Redis Cluster connection", () => {
   });
 
   it("checks if instances are not same", () => {
+    console.log(firstCluster);
     expect(firstCluster).not.toMatchObject(secondCluster);
   });
 
-  it("shoud create foo key with bar as value", async () => {
+  it("should create foo key with bar as value", async () => {
     const foo = "foo";
     const bar = "bar";
+    console.log("Executing firstCluster.set");
     await firstCluster.set(foo, bar);
     const result = await firstCluster.get(foo);
+    console.log("Result of firstCluster.get:", result);
 
     expect(result).toEqual(bar);
   });

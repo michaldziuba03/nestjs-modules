@@ -13,6 +13,11 @@ Redis module based on popular npm library `ioredis`.
 - Simple lifecycle hooks (`onReady`, `beforeShutdown`)
 
 ### Installation
+#### pnpm
+```bash
+pnpm add @mich4l/nestjs-redis ioredis
+```
+
 #### npm
 ```bash
 npm install --save @mich4l/nestjs-redis ioredis
@@ -33,6 +38,7 @@ yarn add @mich4l/nestjs-redis ioredis
       host: 'localhost',
       port: 6379,
     })
+  ],
   controllers: [],
   providers: [],
 })
@@ -150,7 +156,7 @@ export class AppModule {}
         await client.flushall();
       }
     }),
-  ]
+  ],
   controllers: [],
   providers: [],
 })
