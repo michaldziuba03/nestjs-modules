@@ -1,12 +1,18 @@
 import { Logger } from "@nestjs/common";
 import { Client } from "cassandra-driver";
-import { CASSANDRA_CLIENT, CASSANDRA_CONTEXT, CASSANDRA_DEFAULT_TOKEN } from "./cassandra.constants";
+import {
+  CASSANDRA_CLIENT,
+  CASSANDRA_CONTEXT,
+  CASSANDRA_DEFAULT_TOKEN,
+} from "./cassandra.constants";
 import { CassandraModuleOptions } from "./cassandra.interface";
 
 export const logger = new Logger(CASSANDRA_CONTEXT);
 
 const tokens: string[] = [];
-export function validateCassandraToken(token: string = CASSANDRA_DEFAULT_TOKEN) {
+export function validateCassandraToken(
+  token: string = CASSANDRA_DEFAULT_TOKEN
+) {
   if (tokens.includes(token)) {
     throw new Error(`Duplication error for clientName: ${token}`);
   }
@@ -17,7 +23,7 @@ export function validateCassandraToken(token: string = CASSANDRA_DEFAULT_TOKEN) 
 
 export async function createClient(options: CassandraModuleOptions) {
   const client = new Client(options);
-  logger.log('Cassandra client instance is ready');
+  logger.log("Cassandra client instance is ready");
   if (!options.noConnect) {
     await client.connect();
   }

@@ -2,12 +2,15 @@
   "name": "@mich4l/nestjs-cassandra",
   "version": "0.2.4",
   "description": "Cassandra Nest.js connector module",
-  "author": "mich4l",
-  "homepage": "https://github.com/mich4ld/nestjs-connectors/tree/main/cassandra",
+  "author": "Michał Dziuba",
+  "homepage": "https://github.com/michaldziuba03/nestjs-connectors/tree/main/cassandra",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mich4ld/nestjs-connectors"
+    "url": "https://github.com/michaldziuba03/nestjs-connectors"
   },
+  "files": [
+    "dist"
+  ],
   "private": false,
   "license": "MIT",
   "main": "dist/index.js",
@@ -16,7 +19,8 @@
     "cassandra",
     "typescript",
     "database",
-    "connector"
+    "connector",
+    "driver"
   ],
   "scripts": {
     "prebuild": "rimraf dist",
@@ -30,15 +34,14 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "peerDependencies": {
-    "@nestjs/common": "8.x",
-    "@nestjs/core": "8.x",
+    "@nestjs/common": "9",
+    "@nestjs/core": "9",
     "cassandra-driver": "^4.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^9.1.8",
-    "@nestjs/platform-express": "^9.2.1",
+    "@nestjs/common": "^9.2.1",
+    "@nestjs/core": "^9.2.1",
     "@nestjs/schematics": "^9.0.4",
-    "@nestjs/terminus": "^9.1.4",
     "@nestjs/testing": "^9.2.1",
     "@types/express": "^4.17.15",
     "@types/jest": "^29.2.5",

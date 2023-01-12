@@ -1,4 +1,8 @@
 */node_modules
 */dist
 */.idea
+*/logs
+*/*.log
+*/npm-debug.log*
+*/.pnpm-debug.log*
 .idea
