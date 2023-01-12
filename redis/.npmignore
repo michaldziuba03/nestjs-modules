@@ -1,6 +1,7 @@
 .gitignore
 .prettierrc
 .eslintrc.js
+.idea
 nest-cli.json
 tests
 test

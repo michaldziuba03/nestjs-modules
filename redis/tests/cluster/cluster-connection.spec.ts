@@ -1,52 +1,52 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { Cluster } from 'ioredis';
-import { RedisClusterModule, injectClusterToken } from '../../src';
-import { nodes } from './nodes';
+import { Test, TestingModule } from "@nestjs/testing";
+import { Cluster } from "ioredis";
+import { RedisClusterModule, injectClusterToken } from "../../src";
+import { nodes } from "./nodes";
 
-describe('Redis Cluster connection', () => {
-    let module: TestingModule;
-    let firstCluster: Cluster;
-    let secondCluster: Cluster;
+describe("Redis Cluster connection", () => {
+  let module: TestingModule;
+  let firstCluster: Cluster;
+  let secondCluster: Cluster;
 
-    beforeAll(async () => {
-        module = await Test.createTestingModule({
-            imports: [
-                RedisClusterModule.register({
-                    nodes,
-                }),
-                RedisClusterModule.registerAsync({
-                    clusterToken: 'second',
-                    useFactory: () => ({
-                        nodes,
-                    })
-                })
-            ]
-        }).compile();
+  beforeAll(async () => {
+    module = await Test.createTestingModule({
+      imports: [
+        RedisClusterModule.register({
+          nodes,
+        }),
+        RedisClusterModule.registerAsync({
+          clusterToken: "second",
+          useFactory: () => ({
+            nodes,
+          }),
+        }),
+      ],
+    }).compile();
 
-        module.enableShutdownHooks();
-        // FIRST REDIS CLUSTER INSTANCE:
-        const firstToken = injectClusterToken();
-        firstCluster = module.get<Cluster>(firstToken);
-        // SECOND REDIS CLUSTER INSTANCE:
-        const secondToken = injectClusterToken('second');
-        secondCluster = module.get<Cluster>(secondToken);
-    });
+    module.enableShutdownHooks();
+    // FIRST REDIS CLUSTER INSTANCE:
+    const firstToken = injectClusterToken();
+    firstCluster = module.get<Cluster>(firstToken);
+    // SECOND REDIS CLUSTER INSTANCE:
+    const secondToken = injectClusterToken("second");
+    secondCluster = module.get<Cluster>(secondToken);
+  });
 
-    it('checks if instances are not same', () => {
-        expect(firstCluster).not.toMatchObject(secondCluster);
-    });
+  it("checks if instances are not same", () => {
+    expect(firstCluster).not.toMatchObject(secondCluster);
+  });
 
-    it('shoud create foo key with bar as value', async () => {
-        const foo = 'foo';
-        const bar = 'bar';
-        await firstCluster.set(foo, bar);
-        const result = await firstCluster.get(foo);
+  it("shoud create foo key with bar as value", async () => {
+    const foo = "foo";
+    const bar = "bar";
+    await firstCluster.set(foo, bar);
+    const result = await firstCluster.get(foo);
 
-        expect(result).toEqual(bar);
-    });
+    expect(result).toEqual(bar);
+  });
 
-    afterAll(async () => {
-        await firstCluster.flushall();
-        await module.close();
-    });
+  afterAll(async () => {
+    await firstCluster.flushall();
+    await module.close();
+  });
 });

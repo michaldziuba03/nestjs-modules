@@ -4,31 +4,33 @@ import { RedisModuleOptions, RedisModuleAsyncOptions } from "./redis.interface";
 import { createClient, getConnectionToken } from "./redis.utils";
 
 export function createTokenProvider(token: string): Provider {
-    return {
-        provide: REDIS_TOKEN,
-        useValue: token,
-    }
+  return {
+    provide: REDIS_TOKEN,
+    useValue: token,
+  };
 }
 
 export function createClientProvider(token: string): Provider {
-    return  {
-        provide: getConnectionToken(token),
-        inject: [REDIS_OPTIONS],
-        useFactory: createClient,
-    }
+  return {
+    provide: getConnectionToken(token),
+    inject: [REDIS_OPTIONS],
+    useFactory: createClient,
+  };
 }
 
 export function createOptionsProvider(options: RedisModuleOptions): Provider {
-    return  {
-        provide: REDIS_OPTIONS,
-        useValue: options,
-    }
+  return {
+    provide: REDIS_OPTIONS,
+    useValue: options,
+  };
 }
 
-export function createOptionsAsyncProvider(options: RedisModuleAsyncOptions): Provider  {
-    return {
-        provide: REDIS_OPTIONS,
-        inject: options.inject,
-        useFactory: options.useFactory,
-    }
+export function createOptionsAsyncProvider(
+  options: RedisModuleAsyncOptions
+): Provider {
+  return {
+    provide: REDIS_OPTIONS,
+    inject: options.inject,
+    useFactory: options.useFactory,
+  };
 }
