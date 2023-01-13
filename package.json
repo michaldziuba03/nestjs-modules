@@ -1,0 +1,11 @@
+{
+  "name": "nestjs-connectors",
+  "description": "Nest.js connectors monorepo",
+  "keywords": [
+    "monorepo",
+    "nestjs",
+    "workspace"
+  ],
+  "author": "Michał Dziuba",
+  "license": "MIT"
+}

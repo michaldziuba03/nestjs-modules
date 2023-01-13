@@ -3,7 +3,7 @@ Database connectors monorepo for Nest.js
 
 ### Cassandra connector
 ```bash
-npm i @mich4l/nestjs-cassandra cassandra-driver
+npm install --save @mich4l/nestjs-cassandra cassandra-driver
 ```
 
 ### Redis connector

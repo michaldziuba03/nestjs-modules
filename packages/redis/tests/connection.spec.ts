@@ -64,7 +64,9 @@ describe("Redis connection", () => {
     expect(testResult).toEqual(value);
   });
 
-  it("check if redis connections colision is possible", async () => {
+  it("check if redis connections collision is possible", async () => {
+    // firstRedis and secondRedis are SEPERATED Redis databases
+    // And for that reason we are testing if RedisModule provides correct Redis instance.
     const result = await secondRedis.get(key);
     expect(result).toBeFalsy();
 
