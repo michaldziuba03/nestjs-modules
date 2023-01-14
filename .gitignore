@@ -1,6 +1,10 @@
 packages/**/node_modules
-.idea/
+packages/**/dist
+packages/**/build
+pacakges/**/.idea
+packages/**/coverage
 
+.idea/
 # Logs
 logs
 *.log

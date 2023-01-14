@@ -31,3 +31,11 @@ export async function createClient(options: RedisModuleOptions) {
 export function getConnectionToken(name: string = DEFAULT_CONNECTION_NAME) {
   return `${REDIS_BASE_TOKEN}${name}`;
 }
+
+export function valueOrDefault<T>(value: T | undefined, defaultValue: T): T {
+  if (value === undefined) {
+    return defaultValue;
+  }
+
+  return value;
+}

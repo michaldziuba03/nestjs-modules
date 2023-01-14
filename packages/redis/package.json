@@ -36,6 +36,7 @@
   "peerDependencies": {
     "@nestjs/common": "^9.0",
     "@nestjs/core": "^9.0",
+    "reflect-metadata": "^0.1.13",
     "ioredis": "^5.0"
   },
   "devDependencies": {

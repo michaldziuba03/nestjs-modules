@@ -8,7 +8,7 @@ describe("Test graceful shutdown",() => {
   beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
-        RedisModule.register({
+        RedisModule.forRoot({
           host: "localhost",
           port: 2137,
         }),

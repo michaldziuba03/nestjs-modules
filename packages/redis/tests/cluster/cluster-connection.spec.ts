@@ -11,10 +11,10 @@ describe("Redis Cluster connection", () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
-        RedisClusterModule.register({
+        RedisClusterModule.forRoot({
           nodes,
         }),
-        RedisClusterModule.registerAsync({
+        RedisClusterModule.forRootAsync({
           clusterToken: "second",
           useFactory: () => ({
             nodes,
@@ -40,10 +40,8 @@ describe("Redis Cluster connection", () => {
   it("should create foo key with bar as value", async () => {
     const foo = "foo";
     const bar = "bar";
-    console.log("Executing firstCluster.set");
     await firstCluster.set(foo, bar);
     const result = await firstCluster.get(foo);
-    console.log("Result of firstCluster.get:", result);
 
     expect(result).toEqual(bar);
   });

@@ -10,11 +10,11 @@ describe("Redis connection", () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
-        RedisModule.register({
+        RedisModule.forRoot({
           host: "localhost",
           port: 2137,
         }),
-        RedisModule.registerAsync({
+        RedisModule.forRootAsync({
           name: "second",
           useFactory: () => ({
             host: "localhost",

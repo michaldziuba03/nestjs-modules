@@ -1,6 +1,5 @@
 import {
   Module,
-  Global,
   OnApplicationShutdown,
   DynamicModule,
   Inject,
@@ -16,39 +15,45 @@ import {
   createOptionsProvider,
   createTokenProvider,
 } from "./redis.providers";
-import { getConnectionToken, logger, validateRedisToken } from "./redis.utils";
+import {
+  getConnectionToken,
+  logger,
+  validateRedisToken,
+  valueOrDefault,
+} from "./redis.utils";
 
-@Global()
 @Module({})
 export class RedisModule implements OnApplicationShutdown {
   constructor(
+    private readonly moduleRef: ModuleRef,
     @Inject(REDIS_TOKEN)
     private readonly clientToken: string,
     @Inject(REDIS_OPTIONS)
-    private readonly clientOptions: RedisModuleOptions,
-    private readonly moduleRef: ModuleRef
+    private readonly clientOptions: RedisModuleOptions
   ) {}
 
-  static register(options: RedisModuleOptions): DynamicModule {
+  static forRoot(options: RedisModuleOptions): DynamicModule {
     const token = validateRedisToken(options.name);
     const clientToken = createTokenProvider(token);
     const clientOptions = createOptionsProvider(options);
     const clientProvider = createClientProvider(token);
 
     return {
+      global: valueOrDefault(options.isGlobal, true),
       module: RedisModule,
       providers: [clientToken, clientOptions, clientProvider],
       exports: [clientProvider],
     };
   }
 
-  static registerAsync(options: RedisModuleAsyncOptions): DynamicModule {
+  static forRootAsync(options: RedisModuleAsyncOptions): DynamicModule {
     const token = validateRedisToken(options.name);
     const clientToken = createTokenProvider(token);
     const clientOptions = createOptionsAsyncProvider(options);
     const clientProvider = createClientProvider(token);
 
     return {
+      global: valueOrDefault(options.isGlobal, true),
       module: RedisModule,
       imports: options.imports,
       providers: [clientToken, clientOptions, clientProvider],

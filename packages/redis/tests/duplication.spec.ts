@@ -3,12 +3,12 @@ import { RedisModule } from "../src";
 const createModules = () => {
   return {
     imports: [
-      RedisModule.register({
+      RedisModule.forRoot({
         name: "duplicated",
         host: "localhost",
         port: 2137,
       }),
-      RedisModule.registerAsync({
+      RedisModule.forRootAsync({
         name: "duplicated",
         useFactory: () => ({
           host: "localhost",

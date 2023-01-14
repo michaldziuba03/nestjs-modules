@@ -6,11 +6,11 @@ const clusterToken = "duplicated";
 const createModules = () => {
   return {
     imports: [
-      RedisClusterModule.register({
+      RedisClusterModule.forRoot({
         clusterToken,
         nodes,
       }),
-      RedisClusterModule.registerAsync({
+      RedisClusterModule.forRootAsync({
         clusterToken,
         useFactory: () => ({
           nodes,
