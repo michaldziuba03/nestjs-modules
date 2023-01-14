@@ -11,8 +11,7 @@ describe("Redis connection", () => {
     module = await Test.createTestingModule({
       imports: [
         RedisModule.forRoot({
-          host: "localhost",
-          port: 2137,
+          connectUrl: "redis://localhost:2137",
         }),
         RedisModule.forRootAsync({
           name: "second",

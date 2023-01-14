@@ -19,8 +19,18 @@ export function validateRedisToken(token: string = DEFAULT_CONNECTION_NAME) {
   return token;
 }
 
+function createInstance(options: RedisModuleOptions): IORedis {
+  if (options.connectUrl) {
+    const url = options.connectUrl;
+    delete options.connectUrl;
+    return new IORedis(url, options);
+  }
+
+  return new IORedis(options);
+}
+
 export async function createClient(options: RedisModuleOptions) {
-  const client = new IORedis(options);
+  const client = createInstance(options);
   if (options.onReady) {
     await options.onReady(client);
   }

@@ -3,6 +3,7 @@ import { Redis, RedisOptions } from "ioredis";
 
 export interface RedisModuleOptions extends RedisOptions {
   name?: string;
+  connectUrl?: string;
   isGlobal?: boolean;
   onReady?: (client: Redis) => any | Promise<any>;
   beforeShutdown?: (client: Redis) => any | Promise<any>;
