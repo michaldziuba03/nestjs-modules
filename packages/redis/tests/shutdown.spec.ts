@@ -2,7 +2,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { injectRedisToken, RedisModule } from "../src";
 import Redis from "ioredis";
 
-describe("Test graceful shutdown",() => {
+describe("Test graceful shutdown", () => {
   let module: TestingModule;
 
   beforeAll(async () => {

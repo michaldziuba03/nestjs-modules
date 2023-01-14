@@ -33,7 +33,7 @@ yarn add @mich4l/nestjs-redis ioredis
 ```ts
 @Module({
   imports: [
-    RedisModule.register({
+    RedisModule.forRoot({
       name: 'conn1',
       host: 'localhost',
       port: 6379,
@@ -41,6 +41,18 @@ yarn add @mich4l/nestjs-redis ioredis
   ],
   controllers: [],
   providers: [],
+})
+export class AppModule {}
+```
+
+#### Using URL
+```ts
+@Module({
+  imports: [
+    RedisModule.forRoot({
+      connectUrl: "redis://localhost:6379",
+    })
+  ],
 })
 export class AppModule {}
 ```
@@ -72,12 +84,12 @@ export class ExampleService {
 ```ts
 @Module({
   imports: [
-    RedisModule.register({
+    RedisModule.forRoot({
       name: 'conn1',
       host: 'localhost',
       port: 6379,
     }),
-    RedisModule.register({
+    RedisModule.forRoot({
       name: 'conn2',
       host: 'localhost',
       port: 2137,
@@ -99,7 +111,7 @@ Example with Nest.js config module:
       isGlobal: true,
       validationSchema: ConfigSchema,
     }),
-    RedisModule.registerAsync({
+    RedisModule.forRootAsync({
       name: 'my-redis',
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => ({
@@ -121,7 +133,7 @@ Example with Nest.js Throttler and Redis storage
       isGlobal: true,
       validationSchema: ConfigSchema,
     }),
-    RedisModule.registerAsync({
+    RedisModule.forRootAsync({
       name: 'my-redis',
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => ({
