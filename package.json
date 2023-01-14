@@ -4,7 +4,15 @@
   "keywords": [
     "monorepo",
     "nestjs",
-    "workspace"
+    "workspace",
+    "redis",
+    "cassandra",
+    "node",
+    "ioredis",
+    "pnpm",
+    "typescript",
+    "drivers",
+    "connectors"
   ],
   "author": "Michał Dziuba",
   "license": "MIT"
