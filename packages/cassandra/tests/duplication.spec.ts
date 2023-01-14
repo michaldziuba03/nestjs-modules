@@ -5,12 +5,12 @@ const duplicated = "duplicated";
 const createModules = () => {
   return {
     imports: [
-      CassandraModule.register({
+      CassandraModule.forRoot({
         clientName: duplicated,
         contactPoints: ["127.0.0.1"],
         localDataCenter: "datacenter1",
       }),
-      CassandraModule.registerAsync({
+      CassandraModule.forRootAsync({
         clientName: duplicated,
         useFactory: () => ({
           contactPoints: ["127.0.0.1"],

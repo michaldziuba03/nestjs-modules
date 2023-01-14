@@ -37,7 +37,7 @@ export class CassandraModule implements OnApplicationShutdown {
     private readonly moduleRef: ModuleRef
   ) {}
 
-  static register(options: CassandraModuleOptions): DynamicModule {
+  static forRoot(options: CassandraModuleOptions): DynamicModule {
     const token = validateCassandraToken(options.clientName);
     const tokenProvider = createTokenProvider(token);
     const optionsProvider = createCassandraOptions(options);
@@ -50,7 +50,7 @@ export class CassandraModule implements OnApplicationShutdown {
     };
   }
 
-  static registerAsync(options: CassandraModuleAsyncOptions): DynamicModule {
+  static forRootAsync(options: CassandraModuleAsyncOptions): DynamicModule {
     const token = validateCassandraToken(options.clientName);
     const tokenProvider = createTokenProvider(token);
     const optionsProvider = createCassandraAsyncOptions(options);

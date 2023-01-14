@@ -1,31 +1,35 @@
 ## Testing @mich4l/nestjs-cassandra
 You need:
 - docker
-- docker-compose
 
 ### Tests contains:
 - connection with Cassandra servers
 - client name duplication error tests
-- connections collistion tests
+- connections collision tests
 
-### Run docker-compose in `/tests` directory
+### Run docker-compose
 ```bash
-$ cd tests
-$ docker-compose up
+docker-compose up
 ```
 
 ### Run migration script
 ```bash
-$ node migrate.js up
+cd tests
+node migrate.js up
 ```
 
 ### Run tests
+#### pnpm (recommended for development)
+```bash
+pnpm test
+```
+
 #### Yarn
 ```bash
-$ yarn test
+yarn test
 ```
 
 #### npm
 ```bash
-$ npm run test
+npm run test
 ```

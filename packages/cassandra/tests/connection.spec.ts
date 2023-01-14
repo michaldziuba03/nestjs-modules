@@ -10,13 +10,13 @@ describe("Cassandra connection", () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
-        CassandraModule.register({
+        CassandraModule.forRoot({
           contactPoints: ["127.0.0.1"],
           localDataCenter: "datacenter1",
           keyspace: "my_keyspace",
           noConnect: false,
         }),
-        CassandraModule.registerAsync({
+        CassandraModule.forRootAsync({
           clientName: "second",
           useFactory: () => ({
             contactPoints: ["127.0.0.1:9043"],
