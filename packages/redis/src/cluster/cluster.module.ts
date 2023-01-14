@@ -1,6 +1,5 @@
 import {
   DynamicModule,
-  Global,
   Inject,
   Module,
   OnApplicationShutdown,
@@ -25,8 +24,8 @@ import {
   logger,
   validateClusterToken,
 } from "./cluster.utils";
+import { valueOrDefault } from "../redis.utils";
 
-@Global()
 @Module({})
 export class RedisClusterModule implements OnApplicationShutdown {
   constructor(
@@ -44,6 +43,7 @@ export class RedisClusterModule implements OnApplicationShutdown {
     const clusterProvider = createClusterProvider(token);
 
     return {
+      global: valueOrDefault(options.isGlobal, true),
       module: RedisClusterModule,
       providers: [tokenProvider, optionsProvider, clusterProvider],
       exports: [clusterProvider],
@@ -57,6 +57,7 @@ export class RedisClusterModule implements OnApplicationShutdown {
     const clusterProvider = createClusterProvider(token);
 
     return {
+      global: valueOrDefault(options.isGlobal, true),
       module: RedisClusterModule,
       imports: options.imports,
       providers: [tokenProvider, optionsProvider, clusterProvider],

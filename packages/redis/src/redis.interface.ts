@@ -1,21 +1,22 @@
 import { ModuleMetadata } from "@nestjs/common";
 import { Redis, RedisOptions } from "ioredis";
 
-export interface RedisModuleOptions extends RedisOptions {
-  name?: string;
+// options related to ioredis instance creation
+export interface IORedisOptions extends RedisOptions {
   connectUrl?: string;
-  isGlobal?: boolean;
   onReady?: (client: Redis) => any | Promise<any>;
   beforeShutdown?: (client: Redis) => any | Promise<any>;
 }
 
-type RedisModuleOptionsExclude = Omit<RedisModuleOptions, "isGlobal">;
+// options related to RedisModule creation:
+export interface RedisModuleOptions extends IORedisOptions {
+  name?: string;
+  isGlobal?: boolean;
+}
 
 export interface RedisModuleAsyncOptions
   extends Pick<ModuleMetadata, "imports"> {
-  useFactory: (
-    ...args: any
-  ) => RedisModuleOptionsExclude | Promise<RedisModuleOptionsExclude>;
+  useFactory: (...args: any) => IORedisOptions | Promise<IORedisOptions>;
   inject?: any[];
   name?: string;
   isGlobal?: boolean;

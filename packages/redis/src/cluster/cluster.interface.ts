@@ -9,6 +9,7 @@ export interface IORedisClusterOptions {
 }
 
 export interface ClusterModuleOptions extends IORedisClusterOptions {
+  isGlobal?: boolean;
   clusterToken?: string;
 }
 
@@ -19,4 +20,5 @@ export interface ClusterModuleAsyncOptions
   ) => IORedisClusterOptions | Promise<IORedisClusterOptions>;
   inject?: any[];
   clusterToken?: string;
+  isGlobal?: boolean;
 }
