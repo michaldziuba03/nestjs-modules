@@ -22,7 +22,8 @@ import {
   createCassandraToken,
   logger,
   shutdownClient,
-  validateCassandraToken, valueOrDefault,
+  validateCassandraToken,
+  valueOrDefault,
 } from "./cassandra.utils";
 
 @Module({})
