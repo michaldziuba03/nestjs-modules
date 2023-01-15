@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { Redis } from "ioredis";
-import { RedisModule, injectRedisToken } from "../src";
+import { RedisModule, injectRedisToken } from "../lib";
 
 describe("Redis connection", () => {
   let firstRedis: Redis;

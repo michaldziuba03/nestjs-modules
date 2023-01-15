@@ -1,5 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { injectRedisToken, RedisModule } from "../src";
+import { injectRedisToken, RedisModule } from "../lib";
 import Redis from "ioredis";
 
 describe("Test graceful shutdown", () => {

@@ -1,4 +1,4 @@
-import { injectClusterToken } from "../../src";
+import { injectClusterToken } from "../../lib";
 
 describe("Injection cluster token", () => {
   it("should return default token", () => {

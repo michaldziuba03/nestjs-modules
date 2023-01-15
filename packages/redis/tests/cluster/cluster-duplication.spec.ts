@@ -1,4 +1,4 @@
-import { RedisClusterModule } from "../../src";
+import { RedisClusterModule } from "../../lib";
 import { nodes } from "./nodes";
 
 const clusterToken = "duplicated";

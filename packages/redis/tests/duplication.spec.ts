@@ -1,4 +1,4 @@
-import { RedisModule } from "../src";
+import { RedisModule } from "../lib";
 
 const createModules = () => {
   return {

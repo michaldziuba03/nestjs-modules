@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { Cluster } from "ioredis";
-import { RedisClusterModule, injectClusterToken } from "../../src";
+import { RedisClusterModule, injectClusterToken } from "../../lib";
 import { nodes } from "./nodes";
 
 describe("Redis Cluster connection", () => {
@@ -33,7 +33,6 @@ describe("Redis Cluster connection", () => {
   });
 
   it("checks if instances are not same", () => {
-    console.log(firstCluster);
     expect(firstCluster).not.toMatchObject(secondCluster);
   });
 

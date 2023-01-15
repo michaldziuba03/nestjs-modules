@@ -1,4 +1,4 @@
-import { injectRedisToken } from "../src";
+import { injectRedisToken } from "../lib";
 
 describe("Injection token", () => {
   it("should return default token", () => {

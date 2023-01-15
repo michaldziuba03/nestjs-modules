@@ -1,16 +1,23 @@
-version: '3.6'
+version: "3.6"
+
+networks:
+  development:
+
 services:
   redis1:
     image: redis:alpine
     restart: always
     ports:
       - "2137:6379"
+    networks:
+      - development
   redis2:
     image: redis:alpine
     restart: always
     ports:
       - "2138:6379"
-
+    networks:
+      - development
 
   cluster-manager:
     image: redis:alpine
