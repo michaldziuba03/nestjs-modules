@@ -5,6 +5,9 @@
     "url": "https://github.com/michaldziuba03/nestjs-connectors"
   },
   "homepage": "https://github.com/michaldziuba03/nestjs-connectors",
+  "bugs": {
+    "url": "https://github.com/michaldziuba03/nestjs-connectors/issues"
+  },
   "keywords": [
     "monorepo",
     "nestjs",
@@ -19,5 +22,12 @@
     "connectors"
   ],
   "author": "Michał Dziuba",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^8.0.0"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "pre-commit": "pnpm --filter \"@mich4l/*\" pre-commit"
+  }
 }
