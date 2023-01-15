@@ -1,4 +1,4 @@
-import { ModuleMetadata } from "@nestjs/common";
+import { ModuleMetadata, Type } from "@nestjs/common";
 import { Redis, RedisOptions } from "ioredis";
 
 // options related to ioredis instance creation
@@ -14,9 +14,15 @@ export interface RedisModuleOptions extends IORedisOptions {
   isGlobal?: boolean;
 }
 
+export interface RedisOptionsFactory {
+  createOptions: () => IORedisOptions | Promise<IORedisOptions>;
+}
+
 export interface RedisModuleAsyncOptions
   extends Pick<ModuleMetadata, "imports"> {
-  useFactory: (...args: any) => IORedisOptions | Promise<IORedisOptions>;
+  useFactory?: (...args: any) => IORedisOptions | Promise<IORedisOptions>;
+  useClass?: Type<RedisOptionsFactory>;
+  useExisting?: Type<RedisOptionsFactory>;
   inject?: any[];
   name?: string;
   isGlobal?: boolean;
