@@ -30,7 +30,7 @@ import { CassandraModule } from 'mich4l/nestjs-cassandra';
 
 @Module({
   imports: [
-    CassandraModule.register({
+    CassandraModule.forRoot({
       keyspace: 'my_keyspace',
       contactPoints: ['127.0.0.1'],
       localDataCenter: 'datacenter1',
@@ -70,7 +70,7 @@ export class ExampleService {
     ConfigModule.forRoot({
       cache: true,
     }),
-    CassandraModule.registerAsync({
+    CassandraModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => {
