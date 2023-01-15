@@ -1,4 +1,4 @@
-import { injectCassandraToken } from "../src";
+import { injectCassandraToken } from "../lib";
 
 describe("Injection token", () => {
   it("should return default token", () => {

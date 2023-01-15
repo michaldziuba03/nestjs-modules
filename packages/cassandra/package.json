@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Cassandra Nest.js connector module",
   "author": "Michał Dziuba",
-  "homepage": "https://github.com/michaldziuba03/nestjs-connectors/tree/main/cassandra",
+  "homepage": "https://github.com/michaldziuba03/nestjs-connectors/tree/main/packages/cassandra",
   "repository": {
     "type": "git",
     "url": "https://github.com/michaldziuba03/nestjs-connectors"
@@ -27,7 +27,7 @@
     "migrate:down": "node scripts/migrate.js down",
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \\\"lib/**/*.ts\\\" \\\"test/**/*.ts\\\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "pnpm migrate:up && jest && pnpm migrate:down",
     "test:watch": "jest --watch",

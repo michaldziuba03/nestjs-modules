@@ -1,6 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { Client } from "cassandra-driver";
-import { CassandraModule, injectCassandraToken } from "../src";
+import { CassandraModule, injectCassandraToken } from "../lib";
 
 describe("Cassandra connection", () => {
   let firstCassandra: Client;

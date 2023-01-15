@@ -1,12 +1,19 @@
-version: '3.6'
+version: "3.6"
+networks:
+  development:
+
 services:
-  cassandra_first:
+  cassandra1:
     image: cassandra
     restart: always
     ports:
-      - 9042:9042
-  cassandra_second:
+      - "9042:9042"
+    networks:
+      - development
+  cassandra2:
     image: cassandra
     restart: always
     ports:
-      - 9043:9042
+      - "9043:9042"
+    networks:
+      - development

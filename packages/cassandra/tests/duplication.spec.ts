@@ -1,4 +1,4 @@
-import { CassandraModule } from "../src";
+import { CassandraModule } from "../lib";
 
 const duplicated = "duplicated";
 
