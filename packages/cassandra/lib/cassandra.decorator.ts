@@ -1,5 +1,5 @@
-import { Inject } from "@nestjs/common";
-import { createCassandraToken } from "./cassandra.utils";
+import { Inject } from '@nestjs/common';
+import { createCassandraToken } from './cassandra.utils';
 
 export const InjectCassandra = (clientName?: string) => {
   const token = createCassandraToken(clientName);

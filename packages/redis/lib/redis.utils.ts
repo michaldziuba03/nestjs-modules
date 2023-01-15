@@ -1,11 +1,11 @@
-import { Logger } from "@nestjs/common";
-import IORedis from "ioredis";
+import { Logger } from '@nestjs/common';
+import IORedis from 'ioredis';
 import {
   DEFAULT_CONNECTION_NAME,
   REDIS_BASE_TOKEN,
   REDIS_CONTEXT,
-} from "./redis.constants";
-import { RedisModuleOptions } from "./redis.interface";
+} from './redis.constants';
+import { RedisModuleOptions } from './redis.interface';
 
 export const logger = new Logger(REDIS_CONTEXT);
 

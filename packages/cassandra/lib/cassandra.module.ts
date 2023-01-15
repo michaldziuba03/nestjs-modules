@@ -3,28 +3,28 @@ import {
   Inject,
   Module,
   OnApplicationShutdown,
-} from "@nestjs/common";
-import { ModuleRef } from "@nestjs/core";
-import { Client } from "cassandra-driver";
-import { CASSANDRA_OPTIONS, CASSANDRA_TOKEN } from "./cassandra.constants";
+} from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
+import { Client } from 'cassandra-driver';
+import { CASSANDRA_OPTIONS, CASSANDRA_TOKEN } from './cassandra.constants';
 import {
   CassandraModuleAsyncOptions,
   CassandraModuleOptions,
   CassandraOptions,
-} from "./cassandra.interface";
+} from './cassandra.interface';
 import {
   createCassandraAsyncOptions,
   createCassandraOptions,
   createClientProvider,
   createTokenProvider,
-} from "./cassandra.providers";
+} from './cassandra.providers';
 import {
   createCassandraToken,
   logger,
   shutdownClient,
   validateCassandraToken,
   valueOrDefault,
-} from "./cassandra.utils";
+} from './cassandra.utils';
 
 @Module({})
 export class CassandraModule implements OnApplicationShutdown {
@@ -33,7 +33,7 @@ export class CassandraModule implements OnApplicationShutdown {
     private readonly clientOptions: CassandraOptions,
     @Inject(CASSANDRA_TOKEN)
     private readonly clientToken: string,
-    private readonly moduleRef: ModuleRef
+    private readonly moduleRef: ModuleRef,
   ) {}
 
   static forRoot(options: CassandraModuleOptions): DynamicModule {

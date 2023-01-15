@@ -1,5 +1,5 @@
-import { Inject } from "@nestjs/common";
-import { createClusterToken } from "./cluster.utils";
+import { Inject } from '@nestjs/common';
+import { createClusterToken } from './cluster.utils';
 
 export const InjectRedisCluster = (clusterToken?: string) => {
   const token = createClusterToken(clusterToken);

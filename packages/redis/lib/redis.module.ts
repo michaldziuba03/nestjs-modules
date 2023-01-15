@@ -3,25 +3,24 @@ import {
   OnApplicationShutdown,
   DynamicModule,
   Inject,
-} from "@nestjs/common";
-import { ModuleRef } from "@nestjs/core";
-import { Redis } from "ioredis";
-import { shutdownClient } from "./common/common.utils";
-import { REDIS_OPTIONS, REDIS_TOKEN } from "./redis.constants";
-import { RedisModuleOptions, RedisModuleAsyncOptions } from "./redis.interface";
+} from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
+import { Redis } from 'ioredis';
+import { shutdownClient } from './common/common.utils';
+import { REDIS_OPTIONS, REDIS_TOKEN } from './redis.constants';
+import { RedisModuleOptions, RedisModuleAsyncOptions } from './redis.interface';
 import {
   createAsyncProviders,
   createClientProvider,
-  createOptionsAsyncProvider,
   createOptionsProvider,
   createTokenProvider,
-} from "./redis.providers";
+} from './redis.providers';
 import {
   getConnectionToken,
   logger,
   validateRedisToken,
   valueOrDefault,
-} from "./redis.utils";
+} from './redis.utils';
 
 @Module({})
 export class RedisModule implements OnApplicationShutdown {
@@ -30,7 +29,7 @@ export class RedisModule implements OnApplicationShutdown {
     @Inject(REDIS_TOKEN)
     private readonly clientToken: string,
     @Inject(REDIS_OPTIONS)
-    private readonly clientOptions: RedisModuleOptions
+    private readonly clientOptions: RedisModuleOptions,
   ) {}
 
   static forRoot(options: RedisModuleOptions): DynamicModule {

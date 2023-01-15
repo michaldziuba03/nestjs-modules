@@ -1,5 +1,5 @@
-import { ModuleMetadata, Type } from "@nestjs/common";
-import { Redis, RedisOptions } from "ioredis";
+import { ModuleMetadata, Type } from '@nestjs/common';
+import { Redis, RedisOptions } from 'ioredis';
 
 // options related to ioredis instance creation
 export interface IORedisOptions extends RedisOptions {
@@ -19,7 +19,7 @@ export interface RedisOptionsFactory {
 }
 
 export interface RedisModuleAsyncOptions
-  extends Pick<ModuleMetadata, "imports"> {
+  extends Pick<ModuleMetadata, 'imports'> {
   useFactory?: (...args: any) => IORedisOptions | Promise<IORedisOptions>;
   useClass?: Type<RedisOptionsFactory>;
   useExisting?: Type<RedisOptionsFactory>;

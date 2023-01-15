@@ -1,6 +1,10 @@
 {
   "name": "nestjs-connectors",
   "description": "Nest.js connectors monorepo",
+  "repository": {
+    "url": "https://github.com/michaldziuba03/nestjs-connectors"
+  },
+  "homepage": "https://github.com/michaldziuba03/nestjs-connectors",
   "keywords": [
     "monorepo",
     "nestjs",

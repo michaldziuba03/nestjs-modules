@@ -1,5 +1,5 @@
-import { ModuleMetadata } from "@nestjs/common";
-import { Cluster, ClusterNode, ClusterOptions } from "ioredis";
+import { ModuleMetadata } from '@nestjs/common';
+import { Cluster, ClusterNode, ClusterOptions } from 'ioredis';
 
 export interface IORedisClusterOptions {
   options?: ClusterOptions;
@@ -14,7 +14,7 @@ export interface ClusterModuleOptions extends IORedisClusterOptions {
 }
 
 export interface ClusterModuleAsyncOptions
-  extends Pick<ModuleMetadata, "imports"> {
+  extends Pick<ModuleMetadata, 'imports'> {
   useFactory: (
     ...args: any
   ) => IORedisClusterOptions | Promise<IORedisClusterOptions>;

@@ -3,28 +3,28 @@ import {
   Inject,
   Module,
   OnApplicationShutdown,
-} from "@nestjs/common";
-import { ModuleRef } from "@nestjs/core";
-import { Cluster } from "ioredis";
-import { shutdownClient } from "../common/common.utils";
-import { CLUSTER_OPTIONS, CLUSTER_TOKEN } from "./cluster.constants";
+} from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
+import { Cluster } from 'ioredis';
+import { shutdownClient } from '../common/common.utils';
+import { CLUSTER_OPTIONS, CLUSTER_TOKEN } from './cluster.constants';
 import {
   ClusterModuleAsyncOptions,
   ClusterModuleOptions,
   IORedisClusterOptions,
-} from "./cluster.interface";
+} from './cluster.interface';
 import {
   createClusterProvider,
   createOptionsAsyncProvider,
   createOptionsProvider,
   createTokenProvider,
-} from "./cluster.providers";
+} from './cluster.providers';
 import {
   createClusterToken,
   logger,
   validateClusterToken,
-} from "./cluster.utils";
-import { valueOrDefault } from "../redis.utils";
+} from './cluster.utils';
+import { valueOrDefault } from '../redis.utils';
 
 @Module({})
 export class RedisClusterModule implements OnApplicationShutdown {
@@ -33,7 +33,7 @@ export class RedisClusterModule implements OnApplicationShutdown {
     private readonly token: string,
     @Inject(CLUSTER_OPTIONS)
     private readonly clusterOptions: IORedisClusterOptions,
-    private readonly moduleRef: ModuleRef
+    private readonly moduleRef: ModuleRef,
   ) {}
 
   static forRoot(options: ClusterModuleOptions): DynamicModule {

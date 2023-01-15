@@ -1,11 +1,11 @@
-import { Logger } from "@nestjs/common";
-import IORedis from "ioredis";
+import { Logger } from '@nestjs/common';
+import IORedis from 'ioredis';
 import {
   CLUSTER_BASE,
   CLUSTER_CONTEXT,
   CLUSTER_DEFAULT_TOKEN,
-} from "./cluster.constants";
-import { IORedisClusterOptions } from "./cluster.interface";
+} from './cluster.constants';
+import { IORedisClusterOptions } from './cluster.interface';
 
 export const logger = new Logger(CLUSTER_CONTEXT);
 
@@ -22,7 +22,7 @@ export function validateClusterToken(token: string = CLUSTER_DEFAULT_TOKEN) {
 export async function createCluster(clusterOptions: IORedisClusterOptions) {
   const cluster = new IORedis.Cluster(
     clusterOptions.nodes,
-    clusterOptions.options
+    clusterOptions.options,
   );
   if (clusterOptions.onReady) {
     await clusterOptions.onReady(cluster);
@@ -32,7 +32,7 @@ export async function createCluster(clusterOptions: IORedisClusterOptions) {
 }
 
 export const createClusterToken = (
-  clusterToken: string = CLUSTER_DEFAULT_TOKEN
+  clusterToken: string = CLUSTER_DEFAULT_TOKEN,
 ) => {
   return `${CLUSTER_BASE}${clusterToken}`;
 };

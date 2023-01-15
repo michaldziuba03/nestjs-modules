@@ -1,11 +1,11 @@
-import { Provider, Type } from "@nestjs/common";
-import { REDIS_OPTIONS, REDIS_TOKEN } from "./redis.constants";
+import { Provider, Type } from '@nestjs/common';
+import { REDIS_OPTIONS, REDIS_TOKEN } from './redis.constants';
 import {
   RedisModuleOptions,
   RedisModuleAsyncOptions,
   RedisOptionsFactory,
-} from "./redis.interface";
-import { createClient, getConnectionToken } from "./redis.utils";
+} from './redis.interface';
+import { createClient, getConnectionToken } from './redis.utils';
 
 export function createTokenProvider(token: string): Provider {
   return {
@@ -30,7 +30,7 @@ export function createOptionsProvider(options: RedisModuleOptions): Provider {
 }
 
 export function createAsyncProviders(
-  options: RedisModuleAsyncOptions
+  options: RedisModuleAsyncOptions,
 ): Provider[] {
   if (options.useExisting || options.useFactory) {
     return [createOptionsAsyncProvider(options)];
@@ -47,7 +47,7 @@ export function createAsyncProviders(
 }
 
 export function createOptionsAsyncProvider(
-  options: RedisModuleAsyncOptions
+  options: RedisModuleAsyncOptions,
 ): Provider {
   if (options.useFactory) {
     return {
