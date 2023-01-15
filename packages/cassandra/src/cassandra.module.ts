@@ -1,6 +1,5 @@
 import {
   DynamicModule,
-  Global,
   Inject,
   Module,
   OnApplicationShutdown,
@@ -23,10 +22,9 @@ import {
   createCassandraToken,
   logger,
   shutdownClient,
-  validateCassandraToken,
+  validateCassandraToken, valueOrDefault,
 } from "./cassandra.utils";
 
-@Global()
 @Module({})
 export class CassandraModule implements OnApplicationShutdown {
   constructor(
@@ -44,6 +42,7 @@ export class CassandraModule implements OnApplicationShutdown {
     const clientProvider = createClientProvider(token);
 
     return {
+      global: valueOrDefault(options.isGlobal, true),
       module: CassandraModule,
       providers: [tokenProvider, optionsProvider, clientProvider],
       exports: [clientProvider],
@@ -57,6 +56,7 @@ export class CassandraModule implements OnApplicationShutdown {
     const clientProvider = createClientProvider(token);
 
     return {
+      global: valueOrDefault(options.isGlobal, true),
       module: CassandraModule,
       imports: options.imports,
       providers: [tokenProvider, optionsProvider, clientProvider],

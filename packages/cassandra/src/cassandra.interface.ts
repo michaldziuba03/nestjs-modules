@@ -8,11 +8,13 @@ export interface CassandraOptions extends DseClientOptions {
 }
 
 export interface CassandraModuleOptions extends CassandraOptions {
+  isGlobal?: boolean;
   clientName?: string;
 }
 
 export interface CassandraModuleAsyncOptions
   extends Pick<ModuleMetadata, "imports"> {
+  isGlobal?: boolean;
   clientName?: string;
   useFactory: (...args: any) => CassandraOptions | Promise<CassandraOptions>;
   inject?: any[];

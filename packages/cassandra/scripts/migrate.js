@@ -1,4 +1,4 @@
-var scriptArgs = process.argv.slice(2);
+const scriptArgs = process.argv.slice(2);
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { Client } = require("cassandra-driver");
 

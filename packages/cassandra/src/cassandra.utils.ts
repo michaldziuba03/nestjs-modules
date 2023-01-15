@@ -42,3 +42,11 @@ export async function shutdownClient(client: Client) {
 export function createCassandraToken(token: string = CASSANDRA_DEFAULT_TOKEN) {
   return `${CASSANDRA_CLIENT}${token}`;
 }
+
+export function valueOrDefault<T>(value: T | undefined, defaultValue: T): T {
+  if (value === undefined) {
+    return defaultValue;
+  }
+
+  return value;
+}

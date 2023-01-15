@@ -12,12 +12,6 @@ You need:
 docker-compose up
 ```
 
-### Run migration script
-```bash
-cd tests
-node migrate.js up
-```
-
 ### Run tests
 #### pnpm (recommended for development)
 ```bash
