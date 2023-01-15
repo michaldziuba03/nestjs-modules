@@ -10,6 +10,7 @@ import { shutdownClient } from "./common/common.utils";
 import { REDIS_OPTIONS, REDIS_TOKEN } from "./redis.constants";
 import { RedisModuleOptions, RedisModuleAsyncOptions } from "./redis.interface";
 import {
+  createAsyncProviders,
   createClientProvider,
   createOptionsAsyncProvider,
   createOptionsProvider,
@@ -49,14 +50,14 @@ export class RedisModule implements OnApplicationShutdown {
   static forRootAsync(options: RedisModuleAsyncOptions): DynamicModule {
     const token = validateRedisToken(options.name);
     const clientToken = createTokenProvider(token);
-    const clientOptions = createOptionsAsyncProvider(options);
     const clientProvider = createClientProvider(token);
+    const asyncProviders = createAsyncProviders(options);
 
     return {
       global: valueOrDefault(options.isGlobal, true),
       module: RedisModule,
       imports: options.imports,
-      providers: [clientToken, clientOptions, clientProvider],
+      providers: [clientToken, clientProvider, ...asyncProviders],
       exports: [clientProvider],
     };
   }

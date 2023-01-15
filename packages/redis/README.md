@@ -157,7 +157,7 @@ export class AppModule {}
 ```ts
 @Module({
   imports: [
-    RedisModule.register({
+    RedisModule.forRoot({
       name: 'conn1',
       host: 'localhost',
       port: 6379,

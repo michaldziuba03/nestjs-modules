@@ -29,6 +29,23 @@ export function createOptionsProvider(options: RedisModuleOptions): Provider {
   };
 }
 
+export function createAsyncProviders(
+  options: RedisModuleAsyncOptions
+): Provider[] {
+  if (options.useExisting || options.useFactory) {
+    return [createOptionsAsyncProvider(options)];
+  }
+
+  const useClass = options.useClass as Type<RedisOptionsFactory>;
+  return [
+    createOptionsAsyncProvider(options),
+    {
+      useClass,
+      provide: useClass,
+    },
+  ];
+}
+
 export function createOptionsAsyncProvider(
   options: RedisModuleAsyncOptions
 ): Provider {
@@ -48,6 +65,6 @@ export function createOptionsAsyncProvider(
     provide: REDIS_OPTIONS,
     inject,
     useFactory: async (factory: RedisOptionsFactory) =>
-      await factory.createOptions(),
+      await factory.createOptions(options.name),
   };
 }
