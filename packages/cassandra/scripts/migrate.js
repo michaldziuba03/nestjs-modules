@@ -5,6 +5,9 @@ const { Client } = require("cassandra-driver");
 const firstCassandra = new Client({
   contactPoints: ["127.0.0.1"],
   localDataCenter: "datacenter1",
+  socketOptions: {
+    readTimeout: 120000,
+  },
 });
 
 const secondCassandra = new Client({

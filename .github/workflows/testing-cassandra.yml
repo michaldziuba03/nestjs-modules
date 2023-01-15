@@ -29,7 +29,7 @@ jobs:
         run: docker compose up -d
         
       - name: Wait for database startup
-        run: sleep 10
+        run: sleep 100
         
       - name: Install packages with pnpm
         run: pnpm install --frozen-lockfile
