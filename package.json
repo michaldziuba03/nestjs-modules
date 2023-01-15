@@ -24,10 +24,17 @@
   "author": "Michał Dziuba",
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "husky": "^8.0.0"
   },
   "scripts": {
     "prepare": "husky install",
     "pre-commit": "pnpm --filter \"@mich4l/*\" pre-commit"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }
