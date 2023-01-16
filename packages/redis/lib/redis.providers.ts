@@ -46,7 +46,7 @@ export function createAsyncProviders(
   ];
 }
 
-export function createOptionsAsyncProvider(
+function createOptionsAsyncProvider(
   options: RedisModuleAsyncOptions,
 ): Provider {
   if (options.useFactory) {

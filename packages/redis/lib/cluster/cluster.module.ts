@@ -15,7 +15,7 @@ import {
 } from './cluster.interface';
 import {
   createClusterProvider,
-  createOptionsAsyncProvider,
+  createAyncProviders,
   createOptionsProvider,
   createTokenProvider,
 } from './cluster.providers';
@@ -53,14 +53,14 @@ export class RedisClusterModule implements OnApplicationShutdown {
   static forRootAsync(options: ClusterModuleAsyncOptions): DynamicModule {
     const token = validateClusterToken(options.clusterToken);
     const tokenProvider = createTokenProvider(token);
-    const optionsProvider = createOptionsAsyncProvider(options);
     const clusterProvider = createClusterProvider(token);
+    const asyncProviders = createAyncProviders(options);
 
     return {
       global: valueOrDefault(options.isGlobal, true),
       module: RedisClusterModule,
       imports: options.imports,
-      providers: [tokenProvider, optionsProvider, clusterProvider],
+      providers: [tokenProvider, clusterProvider, ...asyncProviders],
       exports: [clusterProvider],
     };
   }
