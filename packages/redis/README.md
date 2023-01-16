@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/43048524/136818357-bcc8e3b9-0e28-4a9c-ad3d-e90a6de78713.png" width="320" alt="Nest Redis Logo" />
 </p>
 
-## Nest.js Redis module
+## Redis module for Nest.js
 Redis module based on popular npm library `ioredis`.
 
 #### Features:
@@ -13,22 +13,95 @@ Redis module based on popular npm library `ioredis`.
 - Simple lifecycle hooks (`onReady`, `beforeShutdown`)
 
 ### Installation
-#### pnpm
 ```bash
+# pnpm:
 pnpm add @mich4l/nestjs-redis ioredis
-```
-
-#### npm
-```bash
+# npm:
 npm install --save @mich4l/nestjs-redis ioredis
-```
-
-#### Yarn
-```bash
+# yarn:
 yarn add @mich4l/nestjs-redis ioredis
 ```
 
+### Usage
+#### Standard configuration
+```ts
+import { Module } from '@nestjs/common';
+import { RedisModule } from '@mich4l/nestjs-redis';
+
+@Module({
+  imports: [
+    RedisModule.forRoot({
+      host: 'localhost',
+      port: 6379,        
+    })
+  ]
+})
+export class AppModule {}
+```
+
+#### Async configuration with useFactory
+```ts
+import { Module } from '@nestjs/common';
+import { RedisModule } from '@mich4l/nestjs-redis';
+
+@Module({
+  imports: [
+    RedisModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        connectUrl: config.get<string>('REDIS_URL')
+      })
+    })
+  ]
+})
+export class AppModule {}
+```
+
+#### Async configuration with useClass
+```ts
+import { Module } from '@nestjs/common';
+import { 
+  RedisOptionsFactory, 
+  IORedisOptions, 
+  RedisModule, 
+} from '@mich4l/nestjs-redis';
+
+@Injectable()
+export class ConfigService implements RedisOptionsFactory {
+  createRedisOptions(): IORedisOptions {
+    return {
+      connectUrl: 'redis://localhost:6379',
+    };
+  }
+}
+
+@Module({
+  imports: [
+    RedisModule.forRootAsync({
+      useClass: ConfigService,
+    })
+  ]
+})
+export class AppModule {}
+```
+
+#### Async configuration with useExisting
+```ts
+@Module({
+  imports: [
+    RedisModule.forRootAsync({
+      imports: [ConfigModule],
+      useExisting: ConfigService,
+    })
+  ]
+})
+export class AppModule {}
+```
+
 ### Example
+Redis configuration
+
 `app.module.ts`
 ```ts
 @Module({
@@ -37,7 +110,8 @@ yarn add @mich4l/nestjs-redis ioredis
       name: 'conn1',
       host: 'localhost',
       port: 6379,
-    })
+    }),
+    ExampleModule,
   ],
   controllers: [],
   providers: [],
@@ -45,17 +119,7 @@ yarn add @mich4l/nestjs-redis ioredis
 export class AppModule {}
 ```
 
-#### Using URL
-```ts
-@Module({
-  imports: [
-    RedisModule.forRoot({
-      connectUrl: "redis://localhost:6379",
-    })
-  ],
-})
-export class AppModule {}
-```
+Injecting Redis client to service
 
 `example.service.ts`
 ```ts
@@ -104,7 +168,6 @@ export class AppModule {}
 ### Async named connections
 Example with Nest.js config module:
 ```ts
-...
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -118,13 +181,13 @@ Example with Nest.js config module:
         host: config.get('REDIS_HOST'),
         port: config.get('REDIS_PORT'),
       }),
-      ...
     }),
+  ]
 })
 export class AppModule {}
 ```
 
-### Inject Redis client to `useFactory`
+### Inject Redis client via token
 Example with Nest.js Throttler and Redis storage
 ```ts
 @Module({
@@ -152,8 +215,24 @@ Example with Nest.js Throttler and Redis storage
 export class AppModule {}
 ```
 
+### RedisModule is global by default
+Set option `isGlobal` to `false` to change it.
+```ts
+@Module({
+  imports: [
+    RedisModule.forRoot({
+      isGlobal: false,
+      host: 'localhost',
+      port: 6379,        
+    })
+  ]
+})
+export class AppModule {}
+```
+
 
 ### Lifecycle hooks
+You can use lifecycle hooks to handle errors.
 ```ts
 @Module({
   imports: [
@@ -169,8 +248,6 @@ export class AppModule {}
       }
     }),
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
 ```
