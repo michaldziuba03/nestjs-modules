@@ -13,7 +13,7 @@ import {
   CassandraOptions,
 } from './cassandra.interface';
 import {
-  createCassandraAsyncOptions,
+  createCassandraAsyncProviders,
   createCassandraOptions,
   createClientProvider,
   createTokenProvider,
@@ -53,14 +53,14 @@ export class CassandraModule implements OnApplicationShutdown {
   static forRootAsync(options: CassandraModuleAsyncOptions): DynamicModule {
     const token = validateCassandraToken(options.clientName);
     const tokenProvider = createTokenProvider(token);
-    const optionsProvider = createCassandraAsyncOptions(options);
     const clientProvider = createClientProvider(token);
+    const asyncProviders = createCassandraAsyncProviders(options);
 
     return {
       global: valueOrDefault(options.isGlobal, true),
       module: CassandraModule,
       imports: options.imports,
-      providers: [tokenProvider, optionsProvider, clientProvider],
+      providers: [tokenProvider, clientProvider, ...asyncProviders],
       exports: [clientProvider],
     };
   }

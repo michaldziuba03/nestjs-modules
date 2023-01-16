@@ -1,4 +1,4 @@
-import { ModuleMetadata } from '@nestjs/common';
+import { ModuleMetadata, Type } from '@nestjs/common';
 import { Client, DseClientOptions } from 'cassandra-driver';
 
 export interface CassandraOptions extends DseClientOptions {
@@ -12,10 +12,18 @@ export interface CassandraModuleOptions extends CassandraOptions {
   clientName?: string;
 }
 
+export interface CassandraOptionsFactory {
+  createCassandraOptions: (
+    clientName?: string,
+  ) => CassandraOptions | Promise<CassandraOptions>;
+}
+
 export interface CassandraModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
   isGlobal?: boolean;
   clientName?: string;
-  useFactory: (...args: any) => CassandraOptions | Promise<CassandraOptions>;
+  useFactory?: (...args: any) => CassandraOptions | Promise<CassandraOptions>;
+  useClass?: Type<CassandraOptionsFactory>;
+  useExisting?: Type<CassandraOptionsFactory>;
   inject?: any[];
 }
