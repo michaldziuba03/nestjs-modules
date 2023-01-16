@@ -1,22 +1,22 @@
 const scriptArgs = process.argv.slice(2);
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { Client } = require("cassandra-driver");
+const { Client } = require('cassandra-driver');
 
 const firstCassandra = new Client({
-  contactPoints: ["127.0.0.1"],
-  localDataCenter: "datacenter1",
+  contactPoints: ['127.0.0.1'],
+  localDataCenter: 'datacenter1',
   socketOptions: {
     readTimeout: 120000,
   },
 });
 
 const secondCassandra = new Client({
-  contactPoints: ["127.0.0.1:9043"],
-  localDataCenter: "datacenter1",
+  contactPoints: ['127.0.0.1:9043'],
+  localDataCenter: 'datacenter1',
 });
 
 async function closeConnections() {
-  console.log("Closing connections...");
+  console.log('Closing connections...');
   await firstCassandra.shutdown();
   await secondCassandra.shutdown();
 }
@@ -29,31 +29,31 @@ async function executeBoth(query) {
 async function up() {
   const createKeyspace =
     "CREATE KEYSPACE IF NOT EXISTS my_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1' }";
-  const useKeyspace = "USE my_keyspace";
+  const useKeyspace = 'USE my_keyspace';
   const createTable =
-    "CREATE TABLE IF NOT EXISTS students (name varchar primary key)";
+    'CREATE TABLE IF NOT EXISTS students (name varchar primary key)';
 
   await executeBoth(createKeyspace);
   await executeBoth(useKeyspace);
   await executeBoth(createTable);
 
-  console.log("Keyspaces and Tables created");
+  console.log('Keyspaces and Tables created');
 }
 
 async function down() {
-  const useKeyspace = "USE my_keyspace";
-  const dropTable = "DROP TABLE students";
-  const dropKeyspace = "DROP KEYSPACE my_keyspace";
+  const useKeyspace = 'USE my_keyspace';
+  const dropTable = 'DROP TABLE students';
+  const dropKeyspace = 'DROP KEYSPACE my_keyspace';
 
   await executeBoth(useKeyspace);
   await executeBoth(dropTable);
   await executeBoth(dropKeyspace);
 
-  console.log("Keyspaces and Tables dropped");
+  console.log('Keyspaces and Tables dropped');
 }
 
-const upCommands = ["up", "UP", "uP", "Up"];
-const downCommands = ["down", "DOWN", "Down", "dOWN", "dowN"];
+const upCommands = ['up', 'UP', 'uP', 'Up'];
+const downCommands = ['down', 'DOWN', 'Down', 'dOWN', 'dowN'];
 
 async function run() {
   const command = scriptArgs[0];
@@ -70,8 +70,8 @@ async function run() {
     return;
   }
 
-  console.log("You must provide additional argument");
-  console.log('"up" or "down"', "\n\nExample: node migrate.js up");
+  console.log('You must provide additional argument');
+  console.log('"up" or "down"', '\n\nExample: node migrate.js up');
 }
 
 run();

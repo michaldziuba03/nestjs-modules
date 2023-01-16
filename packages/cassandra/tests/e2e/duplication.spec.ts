@@ -1,4 +1,9 @@
-import { CassandraModule } from '../lib';
+import { CassandraModule } from '../../lib';
+import {
+  contactPoints1,
+  contactPoints2,
+  localDataCenter,
+} from '../src/options';
 
 const duplicated = 'duplicated';
 
@@ -7,14 +12,14 @@ const createModules = () => {
     imports: [
       CassandraModule.forRoot({
         clientName: duplicated,
-        contactPoints: ['127.0.0.1'],
-        localDataCenter: 'datacenter1',
+        contactPoints: contactPoints1,
+        localDataCenter,
       }),
       CassandraModule.forRootAsync({
         clientName: duplicated,
         useFactory: () => ({
-          contactPoints: ['127.0.0.1'],
-          localDataCenter: 'datacenter1',
+          contactPoints: contactPoints2,
+          localDataCenter,
         }),
       }),
     ],
