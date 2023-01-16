@@ -17,11 +17,21 @@ class ScopedService {
   imports: [
     RedisModule.forRoot({
       connectUrl: connectionUrl1,
+      onReady: async (client) => {
+        await client.disconnect();
+        await client.quit();
+      },
     }),
     RedisModule.forRootAsync({
       name: conn2,
       isGlobal: false,
-      useFactory: () => ({ connectUrl: connectionUrl2 }),
+      useFactory: () => ({
+        connectUrl: connectionUrl2,
+        onReady: async (client) => {
+          await client.disconnect();
+          await client.quit();
+        },
+      }),
     }),
   ],
   providers: [ScopedService],
