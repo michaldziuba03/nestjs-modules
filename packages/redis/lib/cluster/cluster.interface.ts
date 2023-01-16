@@ -21,11 +21,11 @@ export interface ClusterOptionsFactory {
 
 export interface ClusterModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
-  useFactory: (
+  useFactory?: (
     ...args: any
   ) => IORedisClusterOptions | Promise<IORedisClusterOptions>;
-  useClass: Type<ClusterOptionsFactory>;
-  useExisting: Type<ClusterOptionsFactory>;
+  useClass?: Type<ClusterOptionsFactory>;
+  useExisting?: Type<ClusterOptionsFactory>;
   inject?: any[];
   clusterToken?: string;
   isGlobal?: boolean;

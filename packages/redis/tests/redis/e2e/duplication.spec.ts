@@ -21,7 +21,7 @@ const createModules = () => {
 };
 
 describe('Redis connections duplication', () => {
-  it('should throw duplication error', async () => {
+  it('should throw duplication error', () => {
     expect(createModules).toThrow();
   });
 });
