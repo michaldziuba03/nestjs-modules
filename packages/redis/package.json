@@ -26,8 +26,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \\\"lib/**/*.ts\\\" \\\"test/**/*.ts\\\"",
-    "lint": "eslint \"{src,apps,libs,test,lib}/**/*.ts\" --fix",
+    "format": "prettier --write \\\"lib/**/*.ts\\\" \\\"tests/**/*.ts\\\"",
+    "lint": "eslint \"{src,apps,libs,tests,lib}/**/*.ts\" --fix",
     "pre-commit": "lint-staged",
     "test": "jest",
     "test:watch": "jest --watch",
