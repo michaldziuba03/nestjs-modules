@@ -19,7 +19,7 @@ describe('Test async configuration with useExisting option', () => {
     await app.init();
   });
 
-  it('should return success with value true', async () => {
+  it('should return success with value true', () => {
     return request(server)
       .get('/pong')
       .expect(200)

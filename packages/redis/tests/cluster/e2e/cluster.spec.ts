@@ -1,16 +1,16 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { AsyncExistingModule } from '../src/async-existing.module';
+import { AppModule } from '../src/app.module';
 import { Server } from 'http';
 import * as request from 'supertest';
 
-describe('Test async cluster configuration with useExisting option', () => {
+describe('Test standard cluster configuration', () => {
   let app: INestApplication;
   let server: Server;
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [AsyncExistingModule],
+      imports: [AppModule],
     }).compile();
 
     app = module.createNestApplication();

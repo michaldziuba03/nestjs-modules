@@ -19,7 +19,7 @@ describe('Test async cluster configuration with useFactory option', () => {
     await app.init();
   });
 
-  it('should return success with value true', async () => {
+  it('should return PONG', () => {
     return request(server).get('/pong').expect(200).expect({ pong: 'PONG' });
   });
 
