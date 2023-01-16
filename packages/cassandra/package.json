@@ -33,7 +33,8 @@
     "test": "pnpm migrate:up && jest && pnpm migrate:down",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "npm:publish": "pnpm build && pnpm publish --access public"
   },
   "peerDependencies": {
     "@nestjs/common": "9",
