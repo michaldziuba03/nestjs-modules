@@ -65,6 +65,6 @@ export function createOptionsAsyncProvider(
     provide: REDIS_OPTIONS,
     inject,
     useFactory: async (factory: RedisOptionsFactory) =>
-      await factory.createOptions(options.name),
+      await factory.createRedisOptions(options.name),
   };
 }

@@ -15,7 +15,9 @@ export interface RedisModuleOptions extends IORedisOptions {
 }
 
 export interface RedisOptionsFactory {
-  createOptions: (name?: string) => IORedisOptions | Promise<IORedisOptions>;
+  createRedisOptions: (
+    name?: string,
+  ) => IORedisOptions | Promise<IORedisOptions>;
 }
 
 export interface RedisModuleAsyncOptions
