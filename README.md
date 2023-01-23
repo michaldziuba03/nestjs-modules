@@ -15,3 +15,6 @@ npm install --save @mich4l/nestjs-redis ioredis
 # yarn:
 yarn add @mich4l/nestjs-redis ioredis
 ```
+
+## License
+Distributed under the MIT License. See `LICENSE` for more information.
