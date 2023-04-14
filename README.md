@@ -2,7 +2,12 @@
 
 ### Cassandra module
 ```bash
+# pnpm:
+pnpm add @mich4l/nestjs-cassandra cassandra-driver
+# npm:
 npm install --save @mich4l/nestjs-cassandra cassandra-driver
+# yarn
+yarn add @mich4l/nestjs-cassandra cassandra-driver
 ```
 
 ### Redis module
