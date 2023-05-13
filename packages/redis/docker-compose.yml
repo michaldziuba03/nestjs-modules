@@ -18,88 +18,13 @@ services:
       - "2138:6379"
     networks:
       - development
-
-  cluster-manager:
-    image: redis:alpine
-    entrypoint: [
-      '/bin/sh',
-      '-c',
-      '/create-cluster.sh'
-    ]
-    volumes:
-      - ./scripts/create-cluster.sh:/create-cluster.sh
-    restart: on-failure
-    depends_on:
-      - cluster-node1
-      - cluster-node2
-      - cluster-node3
-      - cluster-node4
-      - cluster-node5
-      - cluster-node6
-    network_mode: host
-
-  cluster-node1:
-    image:  bitnami/redis-cluster
+  redis-cluster:
+    image: md03/redis-cluster
     restart: always
-    environment:
-      - REDIS_PORT_NUMBER=7000
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_NODES=cluster-node1 cluster-node2 cluster-node3 cluster-node4 cluster-node5 cluster-node6
-      - REDIS_CLUSTER_DYNAMIC_IPS=no
-      - REDIS_CLUSTER_ANNOUNCE_IP=127.0.0.1
-    network_mode: host
-
-  cluster-node2:
-    image:  bitnami/redis-cluster
-    restart: always
-    environment:
-      - REDIS_PORT_NUMBER=7001
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_NODES=cluster-node1 cluster-node2 cluster-node3 cluster-node4 cluster-node5 cluster-node6
-      - REDIS_CLUSTER_DYNAMIC_IPS=no
-      - REDIS_CLUSTER_ANNOUNCE_IP=127.0.0.1
-    network_mode: host
-
-  cluster-node3:
-    image:  bitnami/redis-cluster
-    restart: always
-    environment:
-      - REDIS_PORT_NUMBER=7002
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_NODES=cluster-node1 cluster-node2 cluster-node3 cluster-node4 cluster-node5 cluster-node6
-      - REDIS_CLUSTER_DYNAMIC_IPS=no
-      - REDIS_CLUSTER_ANNOUNCE_IP=127.0.0.1
-    network_mode: host
-
-  cluster-node4:
-    image:  bitnami/redis-cluster
-    restart: always
-    environment:
-      - REDIS_PORT_NUMBER=7003
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_NODES=cluster-node1 cluster-node2 cluster-node3 cluster-node4 cluster-node5 cluster-node6
-      - REDIS_CLUSTER_DYNAMIC_IPS=no
-      - REDIS_CLUSTER_ANNOUNCE_IP=127.0.0.1
-    network_mode: host
-
-  cluster-node5:
-    image:  bitnami/redis-cluster
-    restart: always
-    environment:
-      - REDIS_PORT_NUMBER=7004
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_NODES=cluster-node1 cluster-node2 cluster-node3 cluster-node4 cluster-node5 cluster-node6
-      - REDIS_CLUSTER_DYNAMIC_IPS=no
-      - REDIS_CLUSTER_ANNOUNCE_IP=127.0.0.1
-    network_mode: host
-
-  cluster-node6:
-    image:  bitnami/redis-cluster
-    restart: always
-    environment:
-      - REDIS_PORT_NUMBER=7005
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_NODES=cluster-node1 cluster-node2 cluster-node3 cluster-node4 cluster-node5 cluster-node6
-      - REDIS_CLUSTER_DYNAMIC_IPS=no
-      - REDIS_CLUSTER_ANNOUNCE_IP=127.0.0.1
-    network_mode: host
+    ports:
+      - "6000:6000"
+      - "6001:6001"
+      - "6002:6002"
+      - "6003:6003"
+      - "6004:6004"
+      - "6005:6005"
