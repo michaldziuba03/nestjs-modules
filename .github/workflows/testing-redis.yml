@@ -25,14 +25,11 @@ jobs:
         with:
           version: latest
         
-      - name: Make script executable
-        run: chmod +x ./scripts/create-cluster.sh
-        
       - name: Run docker-compose
         run: docker compose up -d
         
       - name: Wait for cluster
-        run: sleep 10
+        run: sleep 40
         
       - name: Install packages with pnpm
         run: pnpm install --frozen-lockfile
