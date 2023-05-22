@@ -1,0 +1,12 @@
+version: '3.6'
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    ports:
+      - "8123:8123"
+    restart: always
+  clickhouse2:
+    image: clickhouse/clickhouse-server
+    ports:
+      - "8124:8123"
+    restart: always
