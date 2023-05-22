@@ -46,7 +46,6 @@ export class AppModule {}
 import { Injectable } from '@nestjs/common';
 import { InjectClickHouse } from '@md03/nestjs-clickhouse';
 import type { ClickHouseClient } from '@clickhouse/client';
-import { options } from '../options';
 
 @Injectable()
 export class ExampleService {
