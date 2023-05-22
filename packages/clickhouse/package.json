@@ -1,0 +1,85 @@
+{
+  "name": "@md03/nestjs-clickhouse",
+  "version": "1.0.0",
+  "description": "ClickHouse Nest.js connector module",
+  "main": "dist/index.js",
+  "homepage": "https://github.com/michaldziuba03/nestjs-connectors/tree/main/packages/clickhouse",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaldziuba03/nestjs-connectors"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "format": "prettier --write \\\"lib/**/*.ts\\\" \\\"tests/**/*.ts\\\"",
+    "lint": "eslint \"{src,apps,libs,tests,lib}/**/*.ts\" --fix",
+    "pre-commit": "lint-staged",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "npm:publish": "pnpm build && pnpm publish --access public"
+  },
+  "keywords": [
+    "clickhouse",
+    "timeseries",
+    "database",
+    "nestjs",
+    "nest",
+    "typescript",
+    "olap",
+    "connector",
+    "yandex",
+    "driver"
+  ],
+  "author": "Michał Dziuba",
+  "license": "MIT",
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": ".",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  },
+  "lint-staged": {
+    "{lib,tests}/**/*.ts": [
+      "prettier --write",
+      "eslint"
+    ]
+  },
+  "peerDependencies": {
+    "@clickhouse/client": "^0.0.16"
+  },
+  "devDependencies": {
+    "@clickhouse/client": "^0.0.16",
+    "@nestjs/common": "^9.2.1",
+    "@nestjs/core": "^9.2.1",
+    "@nestjs/schematics": "^9.0.4",
+    "@nestjs/testing": "^9.2.1",
+    "@types/node": "^18.11.18",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.3.1",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.2",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^29.0.4",
+    "tsconfig-paths": "^4.1.2",
+    "typescript": "^4.9.4"
+  }
+}
