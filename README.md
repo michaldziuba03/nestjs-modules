@@ -20,5 +20,15 @@ npm install --save @mich4l/nestjs-redis ioredis
 yarn add @mich4l/nestjs-redis ioredis
 ```
 
+### ClickHouse module
+```bash
+# pnpm:
+pnpm add @md03/nestjs-clickhouse @clickhouse/client
+# npm:
+npm install --save @md03/nestjs-clickhouse @clickhouse/client
+# yarn:
+yarn add @md03/nestjs-clickhouses @clickhouse/client
+```
+
 ## License
 Distributed under the MIT License. See `LICENSE` for more information.
