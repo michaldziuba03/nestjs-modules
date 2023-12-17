@@ -1,6 +1,6 @@
 {
   "name": "@mich4l/nestjs-cassandra",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cassandra Nest.js connector module",
   "author": "Michał Dziuba",
   "homepage": "https://github.com/michaldziuba03/nestjs-connectors/tree/main/packages/cassandra",
