@@ -62,10 +62,10 @@
     ]
   },
   "peerDependencies": {
-    "@clickhouse/client": "^0.0.16"
+    "@clickhouse/client": "^1.0.1"
   },
   "devDependencies": {
-    "@clickhouse/client": "^0.0.16",
+    "@clickhouse/client": "^1.0.1",
     "@nestjs/common": "^9.2.1",
     "@nestjs/core": "^9.2.1",
     "@nestjs/schematics": "^9.0.4",
