@@ -1,15 +1,12 @@
 import { ConfigurableModuleBuilder } from '@nestjs/common';
-import type { BaseClickHouseClientConfigOptions } from '@clickhouse/client';
+import type { ClickHouseClientConfigOptions } from '@clickhouse/client';
 
 // use ConfigurableModuleBuilder to skip most annoying part in building modules
 export const {
   ConfigurableModuleClass: ClickhouseBaseModule,
   MODULE_OPTIONS_TOKEN: CLICKHOUSE_OPTIONS,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  OPTIONS_TYPE,
   ASYNC_OPTIONS_TYPE,
-} = new ConfigurableModuleBuilder<BaseClickHouseClientConfigOptions>()
+} = new ConfigurableModuleBuilder<ClickHouseClientConfigOptions>()
   .setClassMethodName('forRoot')
   .setFactoryMethodName('createClickHouseOptions')
   .setExtras(
