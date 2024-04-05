@@ -6,14 +6,14 @@ import { PingModule } from './ping/ping.module';
 @Module({
   imports: [
     ClickHouseModule.forRoot({
-      host: options.host1,
+      url: options.host1,
       username: options.user,
       password: options.password,
     }),
     ClickHouseModule.forRootAsync({
       name: options.name2,
       useFactory: () => ({
-        host: options.host2,
+        url: options.host2,
         username: options.user,
         password: options.password,
       }),

@@ -1,7 +1,7 @@
-import { ASYNC_OPTIONS_TYPE, OPTIONS_TYPE } from './clickhouse-base.module';
-import { ClickHouseClientConfigOptions } from '@clickhouse/client';
+import { ASYNC_OPTIONS_TYPE } from './clickhouse-base.module';
+import type { ClickHouseClientConfigOptions } from '@clickhouse/client';
 
-export type ClickHouseOptions = typeof OPTIONS_TYPE & {
+export type ClickHouseOptions = ClickHouseClientConfigOptions & {
   name?: string;
 };
 

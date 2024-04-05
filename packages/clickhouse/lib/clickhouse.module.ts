@@ -4,7 +4,11 @@ import {
   ClickHouseAsyncOptions,
   ClickHouseOptions,
 } from './clickhouse.interface';
-import {getConnectionToken, logger, validateConnectionName} from './clickhouse.utils';
+import {
+  getConnectionToken,
+  logger,
+  validateConnectionName,
+} from './clickhouse.utils';
 import {
   createClientProvider,
   createTokenProvider,
