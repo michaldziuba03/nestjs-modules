@@ -8,7 +8,6 @@ export class PingController {
   @Get()
   async ping() {
     const success = await this.pingService.ping();
-
     return { success };
   }
 }

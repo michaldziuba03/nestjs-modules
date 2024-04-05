@@ -12,10 +12,10 @@ export class PingService {
     private readonly client2: ClickHouseClient,
   ) {}
 
-  async ping() {
+  async ping(): Promise<boolean> {
     const ping1 = await this.client1.ping();
     const ping2 = await this.client2.ping();
 
-    return ping1 && ping2;
+    return ping1.success && ping2.success;
   }
 }
