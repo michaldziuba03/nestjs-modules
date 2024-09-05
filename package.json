@@ -1,12 +1,12 @@
 {
-  "name": "nestjs-connectors",
+  "name": "@md03/nestjs-modules",
   "description": "Nest.js connectors monorepo",
   "repository": {
-    "url": "https://github.com/michaldziuba03/nestjs-connectors"
+    "url": "https://github.com/michaldziuba03/nestjs-modules"
   },
-  "homepage": "https://github.com/michaldziuba03/nestjs-connectors",
+  "homepage": "https://github.com/michaldziuba03/nestjs-modules",
   "bugs": {
-    "url": "https://github.com/michaldziuba03/nestjs-connectors/issues"
+    "url": "https://github.com/michaldziuba03/nestjs-modules/issues"
   },
   "keywords": [
     "monorepo",
@@ -24,9 +24,9 @@
   "author": "Michał Dziuba",
   "license": "MIT",
   "devDependencies": {
-    "@commitlint/cli": "^17.4.2",
-    "@commitlint/config-conventional": "^17.4.2",
-    "husky": "^8.0.0"
+    "@commitlint/cli": "^19.4.1",
+    "@commitlint/config-conventional": "^19.4.1",
+    "husky": "^9.1.5"
   },
   "scripts": {
     "prepare": "husky install",
